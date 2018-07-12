@@ -1,0 +1,39 @@
+<div class="jumbotron">
+    <form action="<?php $this->url('carga_usuario'); ?>" method="post">
+    <label>Usuario: 
+        <?php if (count($usuarios) > 0) { ?>
+        <select name="usuario">
+            <?php 
+                foreach ($usuarios as $usuario) 
+                {
+                    $value = $usuario->getId();
+                    $nombre = $usuario->getNombre();
+                    echo ("<option value=\"$value\">$nombre</option>");
+                    
+                }
+            ?>
+        </select>
+        <?php }?>    
+    </label> 
+        <input type="submit" value="Submit">
+    </form>
+    
+</div>
+
+<?php
+    
+        if (count($usuarioSelec) > 0)
+        {
+            
+            echo('<ul>');
+               
+                echo ('<li> dentro</li>');
+                print_r ($usuarioSelec);
+            echo('</ul>');
+            
+        }
+        else
+        {
+            echo('<h5>Ninguno </h5>');
+            
+        }   
