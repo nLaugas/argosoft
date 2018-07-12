@@ -24,6 +24,36 @@ return [
                     ],
                 ],
             ],
+            'usuario' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/usuario',
+                    'defaults' => [
+                        'controller' => \Usuario\Controller\UsuarioController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
+            'carga_usuario' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/carga_usuario',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'carga',
+                    ],
+                ],
+            ],
+            'perfil' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/perfil',
+                    'defaults' => [
+                        'controller' => \Perfil\Controller\PerfilController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
             'application' => [
                 'type'    => Segment::class,
                 'options' => [
@@ -38,7 +68,7 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
+            Controller\IndexController::class => Controller\Factory\IndexControllerFactory::class,
         ],
     ],
     'view_manager' => [
