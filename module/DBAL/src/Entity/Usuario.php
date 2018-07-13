@@ -2,6 +2,8 @@
 namespace DBAL\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DBAL\Entity\Perfil as Perfil;
+use DBAL\Entity\Usuario as Usuario;
 use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Description of Usuario
@@ -14,8 +16,8 @@ class Usuario {
     //put your code here
     
     /**
-     * @ORM\Id
-     * @ORM\Column(name="idUsuario", type="integer")
+     * @ORM\Id()
+     * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
@@ -28,10 +30,16 @@ class Usuario {
     /**
      * @ORM\Column(name="clave", nullable=false, type="string", length=30)
      */
-    protected $password;
-    
-     
-    private $perfiles;
+    protected $clave;
+
+        /**
+     * @ORM\ManyToMany(targetEntity="Perfil", inversedBy="usuarios")
+     * @ORM\JoinTable(name="Usuario_Perfil",
+     *      joinColumns={@ORM\JoinColumn(name="idUsuario", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="idPerfil", referencedColumnName="id")}
+     *      )
+     */
+    public $perfiles;
     
     public function __construct() {
         $this->perfiles = new ArrayCollection();
@@ -60,13 +68,30 @@ class Usuario {
     {
         $this->id = $id;
     }
-    
-    public function setPerfil(Perfil $perfil){
-        $this->perfiles[] = $perfil;
-    }
-
     public function getPerfiles(){
         return $this->perfiles;
     } 
-    
+     /**
+     * @param Perfil $perfil
+     */
+    public function addPerfil(Perfil $perfil)
+    {
+        if ($this->perfiles->contains($perfil)) {
+            return;
+        }
+        $this->perfiles->add($perfil);
+        $perfil->addUsuario($this);
+    }
+    /**
+     * @param Perfil $perfil
+     */
+    public function removePerfil(Perfil $perfil)
+    {
+        if (!$this->perfiles->contains($perfil)) {
+            return;
+        }
+        $this->perfiles->removeElement($perfil);
+        $perfil->removeUsuario($this);
+    }
+
 }

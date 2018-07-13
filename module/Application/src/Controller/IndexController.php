@@ -16,6 +16,7 @@ use DBAL\Entity\Perfil;
 class IndexController extends AbstractActionController
 {    
     protected $em;
+
     public function __construct($entityManager)
     {
         $this->em = $entityManager;
@@ -28,27 +29,43 @@ class IndexController extends AbstractActionController
 
     public function indexAction()
     {
-        return new ViewModel([
-        ]);
+        return new ViewModel();
     }
     public function cargaAction()
     {
-        $usuarioSelect = "nada"; 
-        if ($this->getRequest()->isPost()) 
-        {
+        if ($this->getRequest()->isPost()) {
+            
+            // Fill in the form with POST data
             $data = $this->params()->fromPost(); 
-            $usuarioId = $data['usuario'];
-            $usuarioSelect =   $this->getEntityManager()->getRepository(Usuario::class)->find($usuarioId).getPerfiles(); //servicio- perfiles(id)
-        }     
-        $usuarios = $this->getEntityManager()
-        ->getRepository(Usuario::class)->findAll();   
-              
+            $this->registrarUsuarioPerfil($data);
+        } 
+        
         $perfiles = $this->getEntityManager()
-        ->getRepository(Perfil::class)->findAll();   
-                
-        return new ViewModel(['usuarios' => $usuarios,
-                              'usuarioSelec'=>$usuarioSelect,
-                              'perfiles' => $perfiles
-                            ]);
+                ->getRepository(Perfil::class)->findAll();
+        
+        $usuarios = $this->getEntityManager()
+                ->getRepository(Usuario::class)->findAll();  
+        
+        return new ViewModel(['usuarios' => $usuarios, 
+                              'perfiles'=>$perfiles]);
     }
+    
+    private function registrarUsuarioPerfil($datos)
+    {
+        $usuarioId = $datos['usuario'];
+        $perfilId = $datos['perfil'];
+        
+        $usuario = $this->getEntityManager()
+                ->find(Usuario::class, $usuarioId);
+               
+        $perfil = $this->getEntityManager()
+                ->find(Perfil::class, $perfilId);
+       
+        $usuario->addPerfil($perfil);
+        $perfil->addUsuario($usuario);
+        
+  
+        $this->getEntityManager()
+                        ->flush();
+    } 
 }

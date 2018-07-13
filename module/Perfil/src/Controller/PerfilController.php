@@ -9,9 +9,9 @@ namespace Perfil\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use DBAL\Entity\Usuario;
+use DBAL\Entity\Perfil;
 
-class UsuarioController extends AbstractActionController
+class PerfilController extends AbstractActionController
 {
     /**
      * @var DoctrineORMEntityManager

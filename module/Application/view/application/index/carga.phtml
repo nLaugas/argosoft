@@ -1,3 +1,28 @@
+<?php
+    Use DBAL\Entity\Usuario as Usuario;
+    Use DBAL\Entity\Perfil as Perfil;
+
+    function mostrarPerfiles(Usuario $usuario)
+    {
+        $perfiles = $usuario->getPerfiles();
+        if (count($perfiles) > 0)
+        {
+            
+            echo('<ul>');
+            foreach($perfiles as $perfil)
+            {
+                $nombre = $perfil->getNombre();
+                echo ('<li>'.$nombre.'</li>');
+            }
+            echo('</ul>');
+            
+        }
+        else
+        {
+            echo('<h5>Ninguno</h5>');
+        }        
+    }
+?>
 <div class="jumbotron">
     <form action="<?php $this->url('carga_usuario'); ?>" method="post">
     <label>Usuario: 
@@ -9,31 +34,37 @@
                     $value = $usuario->getId();
                     $nombre = $usuario->getNombre();
                     echo ("<option value=\"$value\">$nombre</option>");
-                    
                 }
             ?>
         </select>
-        <?php }?>    
+        <?php } ?>
+        
+    </label>
+    <label>Perfil: 
+        <?php if (count($perfiles) > 0) { ?>
+        <select name="perfil">
+            <?php 
+                foreach ($perfiles as $perfil) 
+                {
+                    $value = $perfil->getId();
+                    $nombre = $perfil->getNombre();
+                    echo ("<option value=\"$value\">$nombre</option>");
+                }
+            ?>
+        </select>
+        <?php } ?>
+        
     </label> 
         <input type="submit" value="Submit">
     </form>
-    
 </div>
-
 <?php
-    
-        if (count($usuarioSelec) > 0)
-        {
-            
-            echo('<ul>');
-               
-                echo ('<li> dentro</li>');
-                print_r ($usuarioSelec);
-            echo('</ul>');
-            
-        }
-        else
-        {
-            echo('<h5>Ninguno </h5>');
-            
-        }   
+    foreach ($usuarios as $usuario)
+    {
+        echo('<div class="jumbotron">');
+        echo('<h4>Perfiles del usuario '.$usuario->getNombre().'</h4>');
+        
+        mostrarPerfiles($usuario);
+        
+        echo('</div>');
+    }

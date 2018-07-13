@@ -3,7 +3,7 @@ namespace Perfil\Controller\Factory;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Usuario\Controller\PerfilController;
+use Perfil\Controller\PerfilController;
 
 /**
  * Description of UsuarioControllerFactory
