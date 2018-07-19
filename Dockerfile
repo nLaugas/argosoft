@@ -9,6 +9,15 @@ RUN apt-get install -y libpq-dev \
 RUN apt-get install -y git zlib1g-dev \
  && docker-php-ext-install zip
 
+RUN apt-get update -y && apt-get install -y sendmail libpng-dev
+
+RUN docker-php-ext-install gd
+
+RUN apt-get update \
+  && apt-get install -y zlib1g-dev libicu-dev g++ \
+  && docker-php-ext-configure intl \
+  && docker-php-ext-install intl
+
 RUN a2enmod rewrite \
  && sed -i 's!/var/www/html!/var/www/public!g' /etc/apache2/sites-available/000-default.conf \
  && mv /var/www/html /var/www/public \

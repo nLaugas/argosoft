@@ -1,71 +1,72 @@
 <?php
-/**
- * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- */
-
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use DBAL\Entity\Usuario;
-use DBAL\Entity\Perfil;
+use Zend\Barcode\Barcode;
+use Zend\Mvc\MvcEvent;
+use User\Entity\User;
 
-
-class IndexController extends AbstractActionController
-{    
-    protected $em;
-
-    public function __construct($entityManager)
+/**
+ * This is the main controller class of the User Demo application. It contains
+ * site-wide actions such as Home or About.
+ */
+class IndexController extends AbstractActionController 
+{
+    /**
+     * Entity manager.
+     * @var Doctrine\ORM\EntityManager
+     */
+    private $entityManager;
+    
+    /**
+     * Constructor. Its purpose is to inject dependencies into the controller.
+     */
+    public function __construct($entityManager) 
     {
-        $this->em = $entityManager;
+       $this->entityManager = $entityManager;
     }
-
-    public function getEntityManager()
-    {
-        return $this->em;
-    }
-
-    public function indexAction()
+    
+    /**
+     * This is the default "index" action of the controller. It displays the 
+     * Home page.
+     */
+    public function indexAction() 
     {
         return new ViewModel();
     }
-    public function cargaAction()
-    {
-        if ($this->getRequest()->isPost()) {
-            
-            // Fill in the form with POST data
-            $data = $this->params()->fromPost(); 
-            $this->registrarUsuarioPerfil($data);
-        } 
+
+    /**
+     * This is the "about" action. It is used to display the "About" page.
+     */
+    public function aboutAction() 
+    {              
+        $appName = 'User Demo';
+        $appDescription = 'This demo shows how to implement user management with Zend Framework 3';
         
-        $perfiles = $this->getEntityManager()
-                ->getRepository(Perfil::class)->findAll();
-        
-        $usuarios = $this->getEntityManager()
-                ->getRepository(Usuario::class)->findAll();  
-        
-        return new ViewModel(['usuarios' => $usuarios, 
-                              'perfiles'=>$perfiles]);
-    }
+        // Return variables to view script with the help of
+        // ViewObject variable container
+        return new ViewModel([
+            'appName' => $appName,
+            'appDescription' => $appDescription
+        ]);
+    }  
     
-    private function registrarUsuarioPerfil($datos)
+    /**
+     * The "settings" action displays the info about currently logged in user.
+     */
+    public function settingsAction()
     {
-        $usuarioId = $datos['usuario'];
-        $perfilId = $datos['perfil'];
+        $user = $this->entityManager->getRepository(User::class)
+                ->findOneByEmail($this->identity());
         
-        $usuario = $this->getEntityManager()
-                ->find(Usuario::class, $usuarioId);
-               
-        $perfil = $this->getEntityManager()
-                ->find(Perfil::class, $perfilId);
-       
-        $usuario->addPerfil($perfil);
-        $perfil->addUsuario($usuario);
+        if ($user==null) {
+            throw new \Exception('Not found user with such email');
+        }
         
-  
-        $this->getEntityManager()
-                        ->flush();
-    } 
+        return new ViewModel([
+            'user' => $user
+        ]);
+    }
 }
+
