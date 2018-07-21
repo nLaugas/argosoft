@@ -13,6 +13,7 @@
         <!-- Le styles -->
         <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
                         ->prependStylesheet($this->basePath('css/style.css'))
+                        ->prependStylesheet($this->basePath('css/login/login.css'))
                         ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
                         ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
         ?>
@@ -27,8 +28,8 @@
         <div class="container">
             <div class="row">
                 <!-- Page header -->
-                <div class="col-md-4">
-                    <div class="app-caption">Permiso de Trabajo</div>
+                <div class="col-md-12">
+                    <div class="app-caption">Sistema de Permiso de Trabajo</div>
                 </div>                
             </div>
             <div class="row">
@@ -60,7 +61,7 @@
             </div>
             <hr>
             <footer>
-                <p>&copy; 2005 - <?= date('Y') ?> by Your Company. All rights reserved.</p>
+                <p>&copy; 2005 - <?= date('Y') ?>  Argosoft </p>
             </footer>
         </div>
         <?= $this->inlineScript() ?>

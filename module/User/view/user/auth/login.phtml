@@ -22,17 +22,16 @@ $form->get('password')->setAttributes([
         'class' => 'sr-only'
     ]);
 ?>
-
 <div class="row">
     <div class="col-md-offset-4 col-md-3">
         <form class="form-signin" method="post">
-            <h2 class="form-signin-heading">Please sign in</h2>
             <?php if ($isLoginError): ?>
             <div class="alert alert-warning" role="alert">
                 Incorrect login and/or password. 
                 <a href="<?= $this->url('reset-password') ?>">Forgot password?</a>
             </div>
             <?php endif; ?>
+            <img id="profile-img" class="profile-img-card" src="img/login/soup.png" />
             <?= $this->formLabel($form->get('email')); ?>
             <?= $this->formElement($form->get('email')); ?>
             <?= $this->formLabel($form->get('password')); ?>
