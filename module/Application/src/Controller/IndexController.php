@@ -5,7 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Barcode\Barcode;
 use Zend\Mvc\MvcEvent;
-use User\Entity\User;
+use DBAL\Entity\User;
 
 /**
  * This is the main controller class of the User Demo application. It contains

@@ -1,5 +1,5 @@
 <?php
-namespace User\Entity;
+namespace DBAL\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

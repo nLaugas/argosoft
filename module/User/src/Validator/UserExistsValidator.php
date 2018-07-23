@@ -2,7 +2,7 @@
 namespace User\Validator;
 
 use Zend\Validator\AbstractValidator;
-use User\Entity\User;
+use DBAL\Entity\User;
 /**
  * This validator class is designed for checking if there is an existing user 
  * with such an email.

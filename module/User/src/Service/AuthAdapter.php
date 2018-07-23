@@ -4,7 +4,7 @@ namespace User\Service;
 use Zend\Authentication\Adapter\AdapterInterface;
 use Zend\Authentication\Result;
 use Zend\Crypt\Password\Bcrypt;
-use User\Entity\User;
+use DBAL\Entity\User;
 
 /**
  * Adapter used for authenticating user. It takes login and password on input

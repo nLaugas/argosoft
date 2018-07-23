@@ -1,7 +1,7 @@
 <?php
 namespace User\Service;
 
-use User\Entity\User;
+use DBAL\Entity\User;
 use Zend\Crypt\Password\Bcrypt;
 use Zend\Math\Rand;
 

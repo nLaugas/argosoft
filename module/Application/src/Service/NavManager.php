@@ -42,11 +42,7 @@ class NavManager
             'link'  => $url('home')
         ];
         
-        $items[] = [
-            'id' => 'about',
-            'label' => 'About',
-            'link'  => $url('about')
-        ];
+        
         
         // Display "Login" menu item for not authorized user only. On the other hand,
         // display "Admin" and "Logout" menu items only for authorized users.
@@ -71,6 +67,8 @@ class NavManager
                 ]
             ];
             
+            
+            
             $items[] = [
                 'id' => 'logout',
                 'label' => $this->authService->getIdentity(),
@@ -88,6 +86,12 @@ class NavManager
                     ],
                 ]
             ];
+            
+            $items[] = [
+                'id' => 'about',
+                'label' => 'About',
+                'link'  => $url('about')
+             ];
         }
         
         return $items;
