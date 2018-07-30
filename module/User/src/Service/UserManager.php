@@ -5,6 +5,7 @@ use DBAL\Entity\User;
 use Zend\Crypt\Password\Bcrypt;
 use Zend\Math\Rand;
 
+
 /**
  * This service is responsible for adding/editing users
  * and changing user password.
@@ -24,7 +25,8 @@ class UserManager
     {
         $this->entityManager = $entityManager;
     }
-    
+
+
     /**
      * This method adds a new user.
      */

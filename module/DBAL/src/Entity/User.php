@@ -2,7 +2,8 @@
 namespace DBAL\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use DBAL\Entity\Profile;
 /**
  * This class represents a registered user.
  * @ORM\Entity()
@@ -56,6 +57,23 @@ class User
      */
     protected $passwordResetTokenCreationDate;
     
+
+        /**
+     *
+     * @ORM\ManyToMany(targetEntity="Profile", inversedBy="users")
+     * @ORM\JoinTable(
+     *  name="Usuario_Perfil",
+     *  joinColumns={
+     *      @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+     *  },
+     *  inverseJoinColumns={
+     *      @ORM\JoinColumn(name="id_profile", referencedColumnName="id")
+     *  }
+     * )
+     */
+
+
+    protected $profiles;
     /**
      * Returns user ID.
      * @return integer
@@ -224,6 +242,34 @@ class User
     {
         $this->passwordResetTokenCreationDate = $date;
     }
+      /**
+     *  @param Profile $profile
+     */
+    public function addProfile(Profile $profile)
+    {
+        if ($this->profiles->contains($profile)) {
+            return;
+        }
+        $this->profiles->add($profile);
+        $profile->addUser($this);
+    }
+    /**
+     * @param Profile $profile
+     */
+    public function removeProfile(Profile $profile)
+    {
+        if (!$this->profiles->contains($profile)) {
+            return;
+        }
+        $this->profiles->removeElement($profile);
+        $profile->removeUser($this);
+    }
+
+    public function getProfiles() 
+    {
+        return $this->profiles;
+    }
+
 }
 
 

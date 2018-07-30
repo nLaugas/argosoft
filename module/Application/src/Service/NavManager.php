@@ -87,11 +87,7 @@ class NavManager
                 ]
             ];
             
-            $items[] = [
-                'id' => 'about',
-                'label' => 'About',
-                'link'  => $url('about')
-             ];
+         
         }
         
         return $items;

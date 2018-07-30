@@ -1,4 +1,5 @@
 <?php
+use DBAL\Entity\Module;
 $this->headTitle('About');
 
 $this->mainMenu()->setActiveItemId('about');
@@ -9,12 +10,13 @@ $this->pageBreadcrumbs()->setItems([
             ]);
 ?>
 
-<h1>About</h1>
+<h1 align="center">Modulos de <?= $this->escapeHtml($profileName) ?></h1>
 
-<p>
-    Application name: <?= $this->escapeHtml($appName) ?>
-</p>
 
-<p>
-    Application description: <?= $this->escapeHtml($appDescription) ?>
-</p>
+<div class="flex-container">
+
+	<?php foreach ($profileModules as $modules): ?>
+		<button href="#" class="button glyphicon glyphicon-user"> <?= $this->escapeHtml($modules->getName()) ?>
+		</button>
+	<?php endforeach; ?> 
+</div>	

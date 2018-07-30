@@ -7,12 +7,8 @@ use Zend\Crypt\Password\Bcrypt;
 use DBAL\Entity\User;
 
 /**
- * Adapter used for authenticating user. It takes login and password on input
- * and checks the database if there is a user with such login (email) and password.
- * If such user exists, the service returns its identity (email). The identity
- * is saved to session and can be retrieved later with Identity view helper provided
- * by ZF3.
- */
+  *AuthAdapter que implementa el algoritmo de autenticación. Este revisa si el nombre de usuario (dirección *de correo electrónico) y la contraseña son correctas. Para ejecutar este proceso recupera la información *de la base de datos.
+*/
 class AuthAdapter implements AdapterInterface
 {
     /**

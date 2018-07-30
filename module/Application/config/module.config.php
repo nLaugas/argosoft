@@ -63,7 +63,7 @@ return [
             // not logged in users. Restrictive mode is more secure and recommended to use.
             'mode' => 'restrictive'
         ],
-        'controllers' => [
+        'controllers' => [  
             Controller\IndexController::class => [
                 // Allow anyone to visit "index" and "about" actions
                 ['actions' => ['index'], 'allow' => '*'],

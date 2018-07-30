@@ -6,6 +6,8 @@ use Zend\View\Model\ViewModel;
 use Zend\Barcode\Barcode;
 use Zend\Mvc\MvcEvent;
 use DBAL\Entity\User;
+use DBAL\Entity\Profile;
+use DBAL\Entity\Module;
 
 /**
  * This is the main controller class of the User Demo application. It contains
@@ -18,13 +20,15 @@ class IndexController extends AbstractActionController
      * @var Doctrine\ORM\EntityManager
      */
     private $entityManager;
-    
+    private $authService;
     /**
      * Constructor. Its purpose is to inject dependencies into the controller.
      */
-    public function __construct($entityManager) 
+    public function __construct($entityManager,$authService) 
     {
        $this->entityManager = $entityManager;
+       $this->authService = $authService;
+
     }
     
     /**
@@ -43,12 +47,21 @@ class IndexController extends AbstractActionController
     {              
         $appName = 'User Demo';
         $appDescription = 'This demo shows how to implement user management with Zend Framework 3';
-        
+        $userLog = $this->entityManager->getRepository(User::class)->findBy(['email'=>$this->authService->getIdentity()]);
+
+                    $profiles = $userLog[0]->getProfiles();
+                    $modules = $profiles[0]->getModules();    
+                    /*
+                    foreach ($modules as  $m) {
+                        echo $m->getName();
+                    }
+                    die(__FILE__);
+        */
         // Return variables to view script with the help of
         // ViewObject variable container
         return new ViewModel([
-            'appName' => $appName,
-            'appDescription' => $appDescription
+            'profileName' => $profiles[0]->getName(),
+            'profileModules' => $modules,
         ]);
     }  
     

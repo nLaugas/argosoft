@@ -9,8 +9,8 @@ use User\Form\PasswordChangeForm;
 use User\Form\PasswordResetForm;
 
 /**
- * This controller is responsible for user management (adding, editing, 
- * viewing users and changing user's password).
+ * El UserController contendrá la funcionalidad para el manejo de usuario (añadir, editar, cambio de 
+ * contraseña, etc).
  */
 class UserController extends AbstractActionController 
 {
@@ -29,6 +29,7 @@ class UserController extends AbstractActionController
     /**
      * Constructor. 
      */
+    
     public function __construct($entityManager, $userManager)
     {
         $this->entityManager = $entityManager;
@@ -52,6 +53,9 @@ class UserController extends AbstractActionController
     /**
      * This action displays a page allowing to add a new user.
      */
+
+
+
     public function addAction()
     {
         // Create user form
@@ -227,6 +231,9 @@ class UserController extends AbstractActionController
     /**
      * This action displays the "Reset Password" page.
      */
+
+      
+
     public function resetPasswordAction()
     {
         // Create form

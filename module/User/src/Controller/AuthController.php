@@ -8,9 +8,11 @@ use Zend\Authentication\Result;
 use Zend\Uri\Uri;
 use User\Form\LoginForm;
 use DBAL\Entity\User;
+use DBAL\Entity\Profile;
+use DBAL\Entity\Module;
 
 /**
- * This controller is responsible for letting the user to log in and log out.
+ * El AuthController implementará la funcionalidad de autenticación de usuario (login/logout).
  */
 class AuthController extends AbstractActionController
 {
@@ -49,6 +51,8 @@ class AuthController extends AbstractActionController
         $this->userManager = $userManager;
     }
     
+    
+
     /**
      * Authenticates user given email address and password credentials.     
      */
@@ -97,19 +101,20 @@ class AuthController extends AbstractActionController
                     $redirectUrl = $this->params()->fromPost('redirect_url', '');
                     
                     if (!empty($redirectUrl)) {
-                        // The below check is to prevent possible redirect attack 
-                        // (if someone tries to redirect user to another domain).
                         $uri = new Uri($redirectUrl);
                         if (!$uri->isValid() || $uri->getHost()!=null)
                             throw new \Exception('Incorrect redirect URL: ' . $redirectUrl);
                     }
 
-                    // If redirect URL is provided, redirect the user to that URL;
-                    // otherwise redirect to Home page.
-                    if(empty($redirectUrl)) {
-                        return $this->redirect()->toRoute('home');
+                   
+
+                    // en caso de que se quiera acceder a una "url "" no permitida el sistema va a redireccionar al login, luego si la autenticacion es correcta se dirige a dicha url sino a home
+                    
+                    
+                    if(empty($redirectUrl)) {   
+                        return $this->redirect()->toRoute('about');
                     } else {
-                        $this->redirect()->toUrl($redirectUrl);
+                        $this->redirect()->toUrl($redirectUrl); 
                     }
                 } else {
                     $isLoginError = true;
@@ -117,13 +122,18 @@ class AuthController extends AbstractActionController
             } else {
                 $isLoginError = true;
             }           
-        } 
+        }
+
+        
+        
         
         return new ViewModel([
             'form' => $form,
             'isLoginError' => $isLoginError,
             'redirectUrl' => $redirectUrl
         ]);
+
+
     }
     
     /**
