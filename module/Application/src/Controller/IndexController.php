@@ -20,14 +20,12 @@ class IndexController extends AbstractActionController
      * @var Doctrine\ORM\EntityManager
      */
     private $entityManager;
-    private $authService;
     /**
      * Constructor. Its purpose is to inject dependencies into the controller.
      */
-    public function __construct($entityManager,$authService) 
+    public function __construct($entityManager) 
     {
        $this->entityManager = $entityManager;
-       $this->authService = $authService;
 
     }
     
@@ -45,12 +43,21 @@ class IndexController extends AbstractActionController
      */
     public function aboutAction() 
     {              
-        $appName = 'User Demo';
-        $appDescription = 'This demo shows how to implement user management with Zend Framework 3';
-        $userLog = $this->entityManager->getRepository(User::class)->findBy(['email'=>$this->authService->getIdentity()]);
 
-                    $profiles = $userLog[0]->getProfiles();
-                    $modules = $profiles[0]->getModules();    
+        if ($this->getRequest()->isPost()) {
+            $data = $this->params()->fromPost();
+            print_r($data);
+            die(__FILE__);
+        }
+        //obtiene el usuario que esta registrado
+        $userLog = $this->entityManager->getRepository(User::class)
+                    ->findOneByEmail($this->identity());
+
+        //obtiene los perfiles del usuario
+        $profiles = $userLog->getProfiles();
+        
+        //obtiene los modulos del perfil primer perfil 
+        $modules = $profiles[0]->getModules();    
                     /*
                     foreach ($modules as  $m) {
                         echo $m->getName();
@@ -59,6 +66,7 @@ class IndexController extends AbstractActionController
         */
         // Return variables to view script with the help of
         // ViewObject variable container
+
         return new ViewModel([
             'profileName' => $profiles[0]->getName(),
             'profileModules' => $modules,

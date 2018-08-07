@@ -7,17 +7,6 @@ CREATE TABLE USUARIO (
     CONSTRAINT PK_USER PRIMARY KEY (id)
 );
 
-CREATE TABLE USUARIO (
-    id          INTEGER      NOT NULL,
-  email varchar(128) NOT NULL,
-  full_name varchar(512) NOT NULL,
-  password varchar(256) NOT NULL,
-  status integer(11) NOT NULL,
-  date_created timestamp ,
-  pwd_reset_token varchar(32),
-  pwd_reset_token_creation_date datetime,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email_idx` (`email`)
 
 CREATE TABLE PERFIL (
     id          INTEGER     NOT NULL,
@@ -27,6 +16,7 @@ CREATE TABLE PERFIL (
 );
 
 CREATE TABLE USUARIO_PERFIL (   
+    
     idUsuario       INTEGER     NOT NULL,
     idPerfil        INTEGER     NOT NULL,
 
