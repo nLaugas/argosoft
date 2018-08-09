@@ -8,6 +8,7 @@ use Zend\Mvc\MvcEvent;
 use DBAL\Entity\User;
 use DBAL\Entity\Profile;
 use DBAL\Entity\Module;
+use DBAL\Entity\Operation;
 
 /**
  * This is the main controller class of the User Demo application. It contains
@@ -20,6 +21,7 @@ class IndexController extends AbstractActionController
      * @var Doctrine\ORM\EntityManager
      */
     private $entityManager;
+    private $userLog;
     /**
      * Constructor. Its purpose is to inject dependencies into the controller.
      */
@@ -46,9 +48,20 @@ class IndexController extends AbstractActionController
 
         if ($this->getRequest()->isPost()) {
             $data = $this->params()->fromPost();
-            print_r($data);
-            die(__FILE__);
+            
+            //id del modulo que se presiono 
+            $idModuleClick = $data['custId'];
+            
+            //modulo presionado 
+            $modules =$this->entityManager->getRepository(Module::class)
+                    ->findOneBy( array('id'=>$idModuleClick));
+            
+            $operations = $modules->getOperations();
+            $this->redirect()->toRoute($operations[0]->getRoute());
         }
+
+
+
         //obtiene el usuario que esta registrado
         $userLog = $this->entityManager->getRepository(User::class)
                     ->findOneByEmail($this->identity());

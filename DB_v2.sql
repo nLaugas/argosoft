@@ -41,11 +41,10 @@ CREATE TABLE modulo (
     id            INT NOT NULL,
     name          VARCHAR(256) NOT NULL,
     template      VARCHAR(256) NOT NULL, -- un identificador para luego elegir que vista iria
-    id_module     INT,
+    id_module     INT,  
     id_operation  INT,
     CONSTRAINT PK_MODULO PRIMARY KEY (id),
-    FOREIGN KEY (id_module) REFERENCES modulo(id),
-    FOREIGN KEY (id_operation) REFERENCES operacion(id)
+    FOREIGN KEY (id_module) REFERENCES modulo(id)
 );
 
 CREATE TABLE modulo_perfil (   
@@ -56,3 +55,10 @@ CREATE TABLE modulo_perfil (
     CONSTRAINT FK_MODULO_PERFIL PRIMARY KEY (id_module, id_profile)
 );
 
+CREATE TABLE modulo_operacion (   
+    id_module     INT     NOT NULL,
+    id_operation    INT     NOT NULL,
+    FOREIGN KEY (id_module)   REFERENCES modulo(id),
+    FOREIGN KEY (id_operation)  REFERENCES operacion(id),
+    CONSTRAINT FK_MODULO_OPERACION PRIMARY KEY (id_module, id_operation)
+);
