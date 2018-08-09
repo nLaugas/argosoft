@@ -29,5 +29,6 @@ return [
     'Zend\Validator',    
     'Application',
     'User',
-    'DBAL'
+    'DBAL',
+    'Operation'
 ];

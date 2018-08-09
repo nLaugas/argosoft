@@ -32,7 +32,8 @@
         "psr-4": {
             "Application\\": "module/Application/src/",
             "User\\": "module/User/src/",
-            "DBAL\\": "module/DBAL/src/"
+            "DBAL\\": "module/DBAL/src/",
+            "Operation\\": "module/Operation/src/"
         }
     },
     "autoload-dev": {
