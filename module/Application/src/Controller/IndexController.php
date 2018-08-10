@@ -57,8 +57,8 @@ class IndexController extends AbstractActionController
                     ->findOneBy( array('id'=>$idModuleClick));
             
             $operations = $modules->getOperations();
-           // $this->redirect()->toRoute($operations[0]->getRoute());
-            $this->redirect()->toRoute('operations');
+            $this->redirect()->toRoute($operations[0]->getRoute());
+            //$this->redirect()->toRoute('operations');
         }
 
 

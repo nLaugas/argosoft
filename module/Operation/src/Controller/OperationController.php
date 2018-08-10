@@ -33,6 +33,12 @@ class OperationController extends AbstractActionController
 
     public function indexAction()
     {
+        
         return new ViewModel(['hola'=>"hola"]);
+    }
+
+    public function coldAction()
+    {
+        
     }
 }
