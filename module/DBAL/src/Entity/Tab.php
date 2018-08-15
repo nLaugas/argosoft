@@ -3,14 +3,12 @@ namespace DBAL\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use DBAL\Entity\Module;
-use DBAL\Entity\Tab;
 /**
  * This class represents a role.
  * @ORM\Entity()
- * @ORM\Table(name="operacion")
+ * @ORM\Table(name="tab")
  */
-class Operation
+class Tab
 {
     /**
      * @ORM\Id
@@ -25,50 +23,23 @@ class Operation
     protected $name;
     
     /** 
-     * @ORM\Column(name="route")  
+     * @ORM\Column(name="template")  
      */
     protected $route;
 
-  	/**
+    /**
      
      *
-     * @ORM\ManyToMany(targetEntity="Module", mappedBy="operations")
+     * @ORM\ManyToMany(targetEntity="Operation", mappedBy="tags")
      */
-  
-    protected $modules;
-	
-           /**
-     *
-     * @ORM\ManyToMany(targetEntity="Tab", inversedBy="Operations")
-     * @ORM\JoinTable(
-     *  name="operation_tab",
-     *  joinColumns={
-     *      @ORM\JoinColumn(name="id_tab", referencedColumnName="id")
-     *  },
-     *  inverseJoinColumns={
-     *      @ORM\JoinColumn(name="id_operation", referencedColumnName="id")
-     *  }
-     * )
-     */
-    protected $tabs;
-    /**
-     * Constructor.
-     */
+
+    protected $operations;
+
     public function __construct() 
     {
-        $this->tabs = new ArrayCollection(); 
-    }
-
-    public function getTabs()
-    {
-        return $this->Tabs;
-    }
-    
-    public function setTabs($Tabs)
-    {
-        $this->Tabs = $Tabs;
         
     }
+
     public function getId()
     {
         return $this->id;

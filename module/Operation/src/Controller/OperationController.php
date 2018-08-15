@@ -10,7 +10,8 @@ namespace Operation\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use DBAL\Entity\Operation;
-
+use DBAL\Entity\Tab;
+use Operation\view;
 class OperationController extends AbstractActionController
 {
     /**
@@ -33,8 +34,16 @@ class OperationController extends AbstractActionController
 
     public function indexAction()
     {
-        
-        return new ViewModel(['hola'=>"hola"]);
+        $tabs = $this->em->getRepository(Tab::class)
+                    ->findAll();
+
+        var_dump(__DIR__);                
+        $contenido = file_get_contents(__DIR__. '../../../view/operation/form/general.phtml');
+
+        $view = new ViewModel(['tabs'=>$tabs,
+                                'contenido'=>$contenido
+        ]); 
+        return $view;
     }
 
     public function coldAction()

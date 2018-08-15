@@ -15,7 +15,7 @@ $this->pageBreadcrumbs()->setItems([
 	function llamarFuncion(moduleId)
 	{
 		$('input:hidden').val(moduleId);
-		$('#formModule').submit();
+		$('#formModule').submit();	
 	}
 </script>
 
@@ -26,8 +26,8 @@ $this->pageBreadcrumbs()->setItems([
 <form id="formModule" method="POST" action="<?=$rutaAction?>" >
 	<?php foreach ($profileModules as $modules): ?>
 		<button onclick="llamarFuncion(<?php echo ($modules->getId()); ?>)" class="button glyphicon glyphicon-user"> <?= $this->escapeHtml($modules->getName()) ?>
-		</button>
+		</button>	
 		<input type="hidden" id="custId" name="custId" value="">
-	<?php endforeach; ?> 
+	<?php endforeach; ?> 	
 </form>
 </div>	

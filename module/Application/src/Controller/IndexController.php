@@ -9,6 +9,7 @@ use DBAL\Entity\User;
 use DBAL\Entity\Profile;
 use DBAL\Entity\Module;
 use DBAL\Entity\Operation;
+use DBAL\Entity\Tab;
 
 /**
  * This is the main controller class of the User Demo application. It contains
@@ -57,8 +58,9 @@ class IndexController extends AbstractActionController
                     ->findOneBy( array('id'=>$idModuleClick));
             
             $operations = $modules->getOperations();
+            
             $this->redirect()->toRoute($operations[0]->getRoute());
-            //$this->redirect()->toRoute('operations');
+            
         }
 
 

@@ -1,56 +1,35 @@
+<?php
+$this->headTitle('Permisos');
+$this->mainMenu()->setActiveItemId('Modulos');
+
+$this->pageBreadcrumbs()->setItems([
+            'Modulos'=>$this->url('about'),
+            'Permisos'=>$this->url('about')
+            ]);
+?>
 <script type="text/javascript" src ="js/operation/permits/old.js"></script>
 
 <br/><br/>
 <div class="tabs">
   <div class="tab-button-outer">
     <ul id="tab-button">
-      <li><a href="#tab01">General</a></li>
-      <li><a href="#tab02">Proteccion</a></li>
-      <li><a href="#tab03">Residuales</a></li>
-      <li><a href="#tab04">Ambientales</a></li>
-      <li><a href="#tab05">Adicionales</a></li>
-      <li><a href="#tab06">Gases</a></li>
-      <li><a href="#tab07">Firmas</a></li>
+      <?php foreach ($tabs as $tab): ?>
+        <li><a href="#tab01"><?= $this->escapeHtml($tab->getName()) ?></a></li>
+      <?php endforeach; ?> 
     </ul>
   </div>
   <div class="tab-select-outer">
     <select id="tab-select">
-      <option value="#tab01">General</option>
-      <option value="#tab02">Proteccion</option>
-      <option value="#tab03">Residuales</option>
-      <option value="#tab04">Ambientales</option>
-      <option value="#tab05">Adicionales</option>
-      <option value="#tab06">Gases</option>
-      <option value="#tab07">Firmas</option>
+      <?php foreach ($tabs as $tab): ?>
+        <option value="#tab01"><?= $this->escapeHtml($tab->getName()) ?></option>
+      <?php endforeach; ?> 
     </select>
   </div>
-
-  <div id="tab01" class="tab-contents">
-    <h2>General</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quos aliquam consequuntur, esse provident impedit minima porro! Laudantium laboriosam culpa quis fugiat ea, architecto velit ab, deserunt rem quibusdam voluptatum.</p>
-  </div>
-  <div id="tab02" class="tab-contents">
-    <h2>Proteccion</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quos aliquam consequuntur, esse provident impedit minima porro! Laudantium laboriosam culpa quis fugiat ea, architecto velit ab, deserunt rem quibusdam voluptatum.</p>
-  </div>
-  <div id="tab03" class="tab-contents">
-    <h2>Residuales</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quos aliquam consequuntur, esse provident impedit minima porro! Laudantium laboriosam culpa quis fugiat ea, architecto velit ab, deserunt rem quibusdam voluptatum.</p>
-  </div>
-  <div id="tab04" class="tab-contents">
-    <h2>Ambientales</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quos aliquam consequuntur, esse provident impedit minima porro! Laudantium laboriosam culpa quis fugiat ea, architecto velit ab, deserunt rem quibusdam voluptatum.</p>
-  </div>
-  <div id="tab05" class="tab-contents">
-    <h2>Adicionales</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quos aliquam consequuntur, esse provident impedit minima porro! Laudantium laboriosam culpa quis fugiat ea, architecto velit ab, deserunt rem quibusdam voluptatum.</p>
-  </div>
-  <div id="tab06" class="tab-contents">
-    <h2>Gases</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quos aliquam consequuntur, esse provident impedit minima porro! Laudantium laboriosam culpa quis fugiat ea, architecto velit ab, deserunt rem quibusdam voluptatum.</p>
-  </div>
-  <div id="tab07" class="tab-contents">
-    <h2>Firmas</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quos aliquam consequuntur, esse provident impedit minima porro! Laudantium laboriosam culpa quis fugiat ea, architecto velit ab, deserunt rem quibusdam voluptatum.</p>
-  </div>
+  
+  <?php foreach ($tabs as $tab): ?>
+    <div id="tab01" class="tab-contents">
+      <h2><?= $this->escapeHtml($tab->getName()) ?></h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quos aliquam consequuntur, esse provident impedit minima porro! Laudantium laboriosam culpa quis fugiat ea, architecto velit ab, deserunt rem quibusdam voluptatum.</p>
+  <?=  $contenido ?>
+  <?php  endforeach; ?>
 </div>
