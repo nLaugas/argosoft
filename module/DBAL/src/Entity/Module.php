@@ -29,7 +29,10 @@ class Module
      */
     protected $template;
 
-   
+    /** 
+     * @ORM\Column(name="icon")  
+     */
+    protected $icon;
 
     /**
      *
@@ -52,6 +55,7 @@ class Module
      */
     protected $operations;
     
+    
     /**
      * Constructor.
      */
@@ -60,7 +64,16 @@ class Module
         $this->operations = new ArrayCollection();
 
     }
+    public function getIcon()
+    {
+        return $this->icon;
+    }
     
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
+        
+    }
     public function getOperations()
     {
         return $this->operations;

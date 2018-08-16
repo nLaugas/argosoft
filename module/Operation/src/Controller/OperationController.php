@@ -36,12 +36,15 @@ class OperationController extends AbstractActionController
     {
         $tabs = $this->em->getRepository(Tab::class)
                     ->findAll();
+        //levanta el archivo   
+        foreach ($tabs as  $tab) {
+            $forms[$tab->getName()]= file_get_contents(__DIR__. '../../../view/operation/form/'.$tab->getName().'.phtml');
+        }
 
-        var_dump(__DIR__);                
-        $contenido = file_get_contents(__DIR__. '../../../view/operation/form/general.phtml');
+        
 
         $view = new ViewModel(['tabs'=>$tabs,
-                                'contenido'=>$contenido
+                                'forms'=>$forms
         ]); 
         return $view;
     }

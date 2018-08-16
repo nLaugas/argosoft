@@ -41,6 +41,7 @@ CREATE TABLE modulo (
     id            INT NOT NULL,
     name          VARCHAR(256) NOT NULL,
     template      VARCHAR(256) NOT NULL, -- un identificador para luego elegir que vista iria
+    icon          VARCHAR(256) NOT NULL,
     id_module     INT,  
     id_operation  INT,
     CONSTRAINT PK_MODULO PRIMARY KEY (id),
@@ -64,26 +65,29 @@ CREATE TABLE modulo_operacion (
 );
 
 
-CREATE TABLE tab (
+
+CREATE TABLE step (
     id            INT NOT NULL,
     name          VARCHAR(256) NOT NULL,
-    template      VARCHAR(256) NOT NULL,
-    CONSTRAINT PK_TAB PRIMARY KEY (id)
+    icon      VARCHAR(256) NOT NULL,
+    CONSTRAINT PK_STEP PRIMARY KEY (id)
 );
 
-CREATE TABLE record (
+CREATE TABLE form (
     id            INT NOT NULL,
     name          VARCHAR(256) NOT NULL,
     template      VARCHAR(256) NOT NULL, 
-    id_tab        INT,
-    FOREIGN KEY (id_tab)  REFERENCES tab(id), 
-    CONSTRAINT PK_RECORD PRIMARY KEY (id)
+    id_step        INT,
+    FOREIGN KEY (id_step)  REFERENCES step(id), 
+    CONSTRAINT PK_FORM PRIMARY KEY (id)
 );
 
-CREATE TABLE operation_tab (   
+
+
+CREATE TABLE operation_step (   
     id_operation INT  NOT NULL,
-    id_tab       INT  NOT NULL,
+    id_step       INT  NOT NULL,
     FOREIGN KEY (id_operation)   REFERENCES operacion(id),
-    FOREIGN KEY (id_tab)         REFERENCES tab(id),
-    CONSTRAINT FK_OPERATION_TAB  PRIMARY KEY (id_operation, id_tab)
+    FOREIGN KEY (id_step)         REFERENCES step(id),
+    CONSTRAINT FK_OPERATION_STEP  PRIMARY KEY (id_operation, id_step)
 );

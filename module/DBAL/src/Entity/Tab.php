@@ -23,9 +23,9 @@ class Tab
     protected $name;
     
     /** 
-     * @ORM\Column(name="template")  
+     * @ORM\Column(name="icon")  
      */
-    protected $route;
+    protected $icon;
 
     /**
      
@@ -62,14 +62,14 @@ class Tab
         
     }
 
-    public function getRoute()
+    public function getIcon()
     {
-        return $this->route;
+        return $this->icon;
     }
     
-    public function setRoute($route)
+    public function setIcon($icon)
     {
-        $this->route = $route;
+        $this->icon = $icon;
         
     }
  }

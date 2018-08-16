@@ -7,29 +7,57 @@ $this->pageBreadcrumbs()->setItems([
             'Permisos'=>$this->url('about')
             ]);
 ?>
-<script type="text/javascript" src ="js/operation/permits/old.js"></script>
+<script type="text/javascript" src ="js/operation/permits/cold.js"></script>
 
-<br/><br/>
-<div class="tabs">
-  <div class="tab-button-outer">
-    <ul id="tab-button">
-      <?php foreach ($tabs as $tab): ?>
-        <li><a href="#tab01"><?= $this->escapeHtml($tab->getName()) ?></a></li>
-      <?php endforeach; ?> 
-    </ul>
-  </div>
-  <div class="tab-select-outer">
-    <select id="tab-select">
-      <?php foreach ($tabs as $tab): ?>
-        <option value="#tab01"><?= $this->escapeHtml($tab->getName()) ?></option>
-      <?php endforeach; ?> 
-    </select>
-  </div>
-  
-  <?php foreach ($tabs as $tab): ?>
-    <div id="tab01" class="tab-contents">
-      <h2><?= $this->escapeHtml($tab->getName()) ?></h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quos aliquam consequuntur, esse provident impedit minima porro! Laudantium laboriosam culpa quis fugiat ea, architecto velit ab, deserunt rem quibusdam voluptatum.</p>
-  <?=  $contenido ?>
-  <?php  endforeach; ?>
+      
+   <div class="container">
+    <div class="row">
+    <section>
+        <div class="wizard">
+            <div class="wizard-inner">
+                <div class="connecting-line"></div>
+                <ul class="nav nav-tabs" role="tablist">
+                  <?php
+                      $i = 1; 
+                      foreach ($tabs as $tab): 
+                  ?>
+                    <li role="presentation" 
+                        class=<?=($i == 1) ?  "active" :  "disabled"?>>
+                        <a href="#<?=$tab->getName()?>" data-toggle="tab" aria-controls="step<?=  $i?>" role="tab" title="Step<?=  $i?>">
+                            <span class="round-tab">
+                                <i class="glyphicon <?=$tab->getIcon()?>"></i>
+                            </span>
+                        </a>
+                    </li>
+                  <?php $i++;  
+                        endforeach; 
+                  ?> 
+                    
+                </ul>
+            </div>
+
+            <form role="form">
+                <div class="tab-content">  
+                  <?php
+                      $i = 1; 
+                      foreach ($forms as $key => $form): 
+                  ?>
+                  
+                  <div class="tab-pane <?=($i == 1) ?  "active" :  " "?>" role="tabpanel" id="<?=$key?>">
+                    <?= $form?> 
+                    <ul class="list-inline pull-right">
+                        <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                        <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>   
+                    </ul>
+                  </div>
+                  
+                    <?php $i++;  
+                        endforeach; 
+                  ?>      
+                </div>
+      
+            </form>
+        </div>
+    </section>
+   </div>
 </div>
