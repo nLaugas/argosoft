@@ -42,6 +42,10 @@ div.app-caption {
     color:#DDD9C3;
     text-align: center;
     background:#17375E;
+    border-radius: 20px;
+    box-shadow: 0 3px 5px 0 rgba(0,0,0,.4),
+                inset 0px -3px 1px 1px 
+                rgba(204,198,197,.5);
 }
 
 form ul {

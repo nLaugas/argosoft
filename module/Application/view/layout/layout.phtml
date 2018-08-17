@@ -35,21 +35,7 @@
                     <div class="app-caption">Sistema de Permiso de Trabajo</div>
                 </div>                
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- Navigation bar -->
-                    <?php
-                    // Check if the activeMenuItemId passed to layout view model
-                    // and if so, use it for setting active navbar item.
-                    if (isset($activeMenuItemId)) {
-                        $this->mainMenu()->setActiveItemId($activeMenuItemId);
-                    }
-
-                    // Render the navbar
-                    echo $this->mainMenu()->render();
-                    ?>
-                </div>
-            </div>
+       
             <div class="row">
                 <div class="col-md-12">
                     <!-- Breadcrumbs -->

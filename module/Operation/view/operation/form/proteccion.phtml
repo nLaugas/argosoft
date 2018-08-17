@@ -1,15 +1,42 @@
 
-	<form>
-		<h1>Proteccion</h1>
-		  <select id='pre-selected-options' multiple='multiple'>
-		    <option value='elem_1' selected>elem 1</option>
-		    <option value='elem_2'>elem 2</option>
-		    <option value='elem_3'>elem 3</option>
-		    <option value='elem_4' selected>elem 4</option>
-		</select>
-	</form>
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-2">
+      <form class="form-horizontal" role="form">
+        <fieldset>
+
+          <!-- Form Name -->
+          <legend>Proteccion</legend>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="textinput">Disponibles</label>
+            <div class="col-sm-10">
+              	<select id='pre-selected-options' multiple='multiple'>
+				    <option value='elem_1'>Respirador de vapores</option>
+				    <option value='elem_2'>Respirador de vapores</option>
+				    <option value='elem_3'>Respirador para polvos</option>
+				    <option value='elem_4' >Visera o careta</option>
+				    <option value='elem_5' >Botas</option>
+				    <option value='elem_5' >Equipo de rescaste</option>
+				</select>
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="textinput">Line 2</label>
+            <div class="col-sm-10">
+              <input type="text" placeholder="Address Line 2" class="form-control">
+            </div>
+          </div>
 
 
+
+        </fieldset>
+      </form>
+    </div><!-- /.col-lg-12 -->
+</div><!-- /.row -->
 <script src="js/operation/permits/forms/jquery.multi-select.js"></script>
 <script type="text/javascript">
   // run pre selected options

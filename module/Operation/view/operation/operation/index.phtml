@@ -2,10 +2,7 @@
 $this->headTitle('Permisos');
 $this->mainMenu()->setActiveItemId('Modulos');
 
-$this->pageBreadcrumbs()->setItems([
-            'Modulos'=>$this->url('about'),
-            'Permisos'=>$this->url('about')
-            ]);
+
 ?>
 <script type="text/javascript" src ="js/operation/permits/cold.js"></script>
 
@@ -17,27 +14,22 @@ $this->pageBreadcrumbs()->setItems([
             <div class="wizard-inner">
                 <div class="connecting-line"></div>
                 <ul class="nav nav-tabs" role="tablist">
-                  <?php
-                      $i = 1; 
-                      foreach ($tabs as $tab): 
-                  ?>
+                  <?php foreach ($tabs as $key=> $tab): ?>
                     <li role="presentation" 
-                        class=<?=($i == 1) ?  "active" :  "disabled"?>>
+                        class=<?=($key == 0) ?  "active" :  "disabled"?>>
                         <a href="#<?=$tab->getName()?>" data-toggle="tab" aria-controls="step<?=  $i?>" role="tab" title="Step<?=  $i?>">
                             <span class="round-tab">
                                 <i class="glyphicon <?=$tab->getIcon()?>"></i>
                             </span>
                         </a>
                     </li>
-                  <?php $i++;  
-                        endforeach; 
-                  ?> 
+                  <?php endforeach;?> 
                     
                 </ul>
             </div>
-
+            
             <form role="form">
-                <div class="tab-content">  
+                <div class="tab-content ">  
                   <?php
                       $i = 1; 
                       foreach ($forms as $key => $form): 
@@ -51,7 +43,7 @@ $this->pageBreadcrumbs()->setItems([
                     </ul>
                   </div>
                   
-                    <?php $i++;  
+                  <?php $i++;  
                         endforeach; 
                   ?>      
                 </div>
