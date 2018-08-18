@@ -20,7 +20,7 @@ return [
                     'route'    => '/',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
-                        'action'     => 'login',
+                        'action'     => 'index',
                     ],
                 ],
             ],
