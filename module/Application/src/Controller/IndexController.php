@@ -54,13 +54,19 @@ class IndexController extends AbstractActionController
             $idModuleClick = $data['custId'];
             
             //modulo presionado 
-            $modules =$this->entityManager->getRepository(Module::class)
+            $module =$this->entityManager->getRepository(Module::class)
                     ->findOneBy( array('id'=>$idModuleClick));
             
-            $operations = $modules->getOperations();
+            $operations = $module->getOperations();
             
-            $this->redirect()->toRoute($operations[0]->getRoute());
-            
+            if ($operations[0] != NULL){
+                //si el modulo tiene modulos 
+                $this->redirect()->toRoute($operations[0]->getRoute());
+            }
+            else{                
+                //si el modulo tiene operaciones 
+                $this->redirect()->toRoute($module->getTemplate());
+            }
         }
 
 
