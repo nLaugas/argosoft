@@ -5,7 +5,8 @@ $this->mainMenu()->setActiveItemId('Modulos');
 ?>
 <script type="text/javascript" src ="js/operation/permits/cold.js"></script>
 
-      
+
+
    <div class="container">
     <div class="row">
     <section>
@@ -18,7 +19,7 @@ $this->mainMenu()->setActiveItemId('Modulos');
                         class=<?=($key == 0) ?  "active" :  "disabled"?>>
                         <a href="#<?=$tab->getName()?>" data-toggle="tab" aria-controls="step<?=  $i?>" role="tab" title="Step<?=  $i?>">
                             <span class="round-tab">
-                                <i class="glyphicon <?=$tab->getIcon()?>"></i>
+                                <i ><?=$tab->getName()?></i>
                             </span>
                         </a>
                     </li>
