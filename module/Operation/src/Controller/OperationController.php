@@ -34,10 +34,17 @@ class OperationController extends AbstractActionController
 
     public function indexAction()
     {
+        if ($this->getRequest()->isPost()) {
+            $data = $this->params()->fromPost();
+            print_r($data);
+            die(__FILE__);
+
+        }
         //falta cargar los tab de cada persona 
         $tabs = $this->em->getRepository(Tab::class)
-                    ->findBy(array(),array('id' => 'ASC' ));
-        //levanta el archivo   
+                    ->findBy(array(),array('id' => 'ASC' )); //ordenado por id (puede que cambie por algun criterio)
+
+        //levanta los archivo form/*.phtml de cada uno    
         foreach ($tabs as  $tab) {
             $forms[$tab->getName()]= file_get_contents(__DIR__. '../../../view/operation/form/'.$tab->getName().'.phtml');
         }
