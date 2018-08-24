@@ -34,8 +34,12 @@ return [
             
         ],
     ],   
-
-/*  'doctrine' => [
+    'service_manager' => [
+        'factories' => [
+            Service\FormManager::class => Service\Factory\FormManagerFactory::class,
+        ],
+    ],
+  'doctrine' => [
         'driver' => [
             __NAMESPACE__ . '_driver' => [
                 'class' => AnnotationDriver::class,
@@ -48,5 +52,5 @@ return [
                 ]
             ]
         ]
-    ]*/ 
+    ]
 ];

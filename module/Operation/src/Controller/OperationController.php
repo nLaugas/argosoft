@@ -1,27 +1,26 @@
 <?php
-/**
- * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- */
-
 namespace Operation\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use DBAL\Entity\Operation;
 use DBAL\Entity\Tab;
+use DBAL\Entity\General;
 use Operation\view;
+
 class OperationController extends AbstractActionController
 {
     /**
      * @var DoctrineORMEntityManager
      */
-    protected $em;
+    private $em;
 
-    public function __construct($entityManager)
+    private $formManager;
+    
+    public function __construct($entityManager, $formManager)
     {
         $this->em = $entityManager;
+        $this->formManager = $formManager;
     }
     
     public function getEntityManager()
@@ -36,7 +35,10 @@ class OperationController extends AbstractActionController
     {
         if ($this->getRequest()->isPost()) {
             $data = $this->params()->fromPost();
-            print_r($data);
+            // if ($this->formManager->addGeneral($data) != NULL)
+            //     echo("agregado");
+        $general = $this->formManager->addGeneral($data);
+        print_r($general);
             die(__FILE__);
 
         }
