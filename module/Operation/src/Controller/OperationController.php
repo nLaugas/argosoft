@@ -37,7 +37,7 @@ class OperationController extends AbstractActionController
             $data = $this->params()->fromPost();
             // if ($this->formManager->addGeneral($data) != NULL)
             //     echo("agregado");
-        $general = $this->formManager->addGeneral($data);
+        $general = $this->formManager->addGeneral($data['general']);
         print_r($general);
             die(__FILE__);
 
