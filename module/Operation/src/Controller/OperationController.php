@@ -23,14 +23,6 @@ class OperationController extends AbstractActionController
         $this->formManager = $formManager;
     }
     
-    public function getEntityManager()
-    {
-        if (null === $this->entityManager) 
-        {
-            $this->entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-        }
-        return $this->entityManager;
-    }
 
     public function indexAction()
     {
@@ -65,6 +57,18 @@ class OperationController extends AbstractActionController
 
         return $view;
     }
+    public function checkWorkPermitsAction()
+    {
+        
+        //print_r($this->entityManager->getRepository(General::class)->findOneBy( array('id'=>1)));
+        
+
+        echo "<h2>checkWorkPermitsAction</h2>";
+        return "hola";
+    }
+   
+
+
 
     public function coldAction()
     {

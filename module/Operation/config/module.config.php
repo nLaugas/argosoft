@@ -31,9 +31,21 @@ return [
                     ],
                 ],
             ],
+
+            'check_work_permits' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/check_work_permits',
+                    'defaults' => [
+                        'controller' => Controller\OperationController::class,
+                        'action'     => 'checkWorkPermits',
+                    ],
+                ],
+            ],
             
         ],
-    ],   
+    ],  
+
     'service_manager' => [
         'factories' => [
             Service\FormManager::class => Service\Factory\FormManagerFactory::class,
