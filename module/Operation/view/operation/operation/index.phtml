@@ -28,7 +28,7 @@ $rutaAction = $this->url('operations');
                 </ul>
             </div>
             
-          
+              <form enctype='application/json' class="form-horizontal" role="form" method="POST" action="<?=$rutaAction?>" >
                 <div class="tab-content ">  
                   <?php
                       $i = 1; 
@@ -38,9 +38,9 @@ $rutaAction = $this->url('operations');
                   <div class="tab-pane <?=($i == 1) ?  "active" :  " "?>" role="tabpanel" id="<?=$key?>">
                     <div class="row">
                       <div class="col-md-6 col-md-offset-2">
-                        <form enctype='application/json' class="form-horizontal" role="form" method="POST" action="<?=$rutaAction?>" >
+                        
                           <?= $form?>  
-                        </form>
+                        
                       </div><!-- /.col-lg-12 -->
                     </div><!-- /.row -->
                     
@@ -62,7 +62,8 @@ $rutaAction = $this->url('operations');
                         endforeach; 
                   ?>      
                 </div>
-      
+                <input type="submit" value="Submit">
+              </form> 
         </div>
     </section>
    </div>
