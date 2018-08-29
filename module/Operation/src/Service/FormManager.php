@@ -50,7 +50,7 @@ class FormManager
         // Create new General entity
 
         $general = new General();
-        $general->setDate($dataGeneral['date']); //preguntar si la fecha carga auto
+        $general->setDate(date('Y-m-d H:i:s')); //preguntar si la fecha carga auto
         $general->setCompany($dataGeneral['company']);
         $general->setWorkPlace($dataGeneral['workplace']);
         $general->setWorkStage($dataGeneral['workstage']);
