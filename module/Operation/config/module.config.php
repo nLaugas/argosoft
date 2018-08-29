@@ -32,10 +32,10 @@ return [
                 ],
             ],
 
-            'check_work_permits' => [
+            'check-work-permits' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route'    => '/check_work_permits',
+                    'route'    => '/check-work-permits',
                     'defaults' => [
                         'controller' => Controller\OperationController::class,
                         'action'     => 'checkWorkPermits',

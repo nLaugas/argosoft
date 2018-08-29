@@ -34,8 +34,7 @@ class OperationController extends AbstractActionController
             
             $workPermit = $this->formManager->addNewWorkPermit($data);
             
-            //print_r($data);
-            die(__FILE__);
+            $this->redirect()->toRoute('about');
 
         }
         
@@ -60,11 +59,13 @@ class OperationController extends AbstractActionController
     public function checkWorkPermitsAction()
     {
         
-        //print_r($this->entityManager->getRepository(General::class)->findOneBy( array('id'=>1)));
+        $permits = $this->formManager->findPermits();
+ 
+        $view = new ViewModel(['permits'=>$permits
+        ]);
         
 
-        echo "<h2>checkWorkPermitsAction</h2>";
-        return "hola";
+        return $view;   
     }
    
 

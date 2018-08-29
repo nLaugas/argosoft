@@ -3,6 +3,7 @@ namespace Operation\Service;
 
 use DBAL\Entity\Form\General;
 use DBAL\Entity\Form\Residual;
+use DBAL\Entity\Tab;
 
 class FormManager
 {
@@ -17,6 +18,19 @@ class FormManager
     }
 
 
+    
+    public function findPermits($filter = null) 
+    {
+        
+        $permits['general'] = $this->entityManager->getRepository(General::class)
+                    ->findBy(array(),array('id' => 'ASC' ));
+        $permits['residual'] = $this->entityManager->getRepository(Residual::class)
+                    ->findBy(array(),array('id' => 'ASC' ));
+        return $permits;
+
+    }
+
+
     /**
      * This method adds a new work permits.
      */
@@ -24,7 +38,7 @@ class FormManager
     {
         
         
-        //parse subforms
+        //Parse json 
 
         $dataGeneral = $data['general'];
         $dataResidual = $data['residual'];
