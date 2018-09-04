@@ -34,7 +34,7 @@
 	}
 
 	.flex-container {
-		padding: 0;
+		padding-top: 5%;
 		margin: 0;
 		list-style: none;
 		flex: 1 1 auto;

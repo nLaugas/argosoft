@@ -65,5 +65,12 @@ form ul li {
 }
 
 .content {
-    padding-top: 5%; 
+    padding-top: 0%; 
+    padding-bottom: 30px;
+    /*margin: 20px auto;*/
+    background: #e8e8e84a;
+    border-radius: 20px;
+    box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, .3), 
+                inset 0px 4px 1px 1px white, 
+                inset 0px -3px 1px 1px rgba(204,198,197,.5);
 }

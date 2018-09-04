@@ -2,36 +2,38 @@
         <fieldset>
 
           <!-- Form Name -->
-          <legend>Riesgos Residuales de proceso </legend>
+          <legend>Riesgos Residuales de proceso </legend>	
+	
+		         <!-- Text input-->
+		         <div class="form-group ">
+			            <label class="col-sm-2 control-label" for="textinput">Presion del equipo</label>
+			            <div class="col-sm-8">
+			              	<input type="text" placeholder="Presion en Pascales" class="form-control" name="residual[teamPressure]">
+			            </div>
+		         </div>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="textinput">Presion del equipo</label>
-            <div class="col-sm-10">
-              <input type="text" placeholder="Presion en Pascales" class="form-control" name="residual[teamPressure]">
-            </div>
-          </div>
+		         <!-- Text input-->
+		  
+		         <div class="form-group ">
+			            <label class="col-sm-2 control-label" for="textinput">Temperatura de equipo</label>
+			            <div class="col-sm-8">
+			              	<input type="text" placeholder="Temperatura en Grado Celsius" class="form-control" name="residual[teamTemperature]">
+			            </div>
+		         </div>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="textinput">Temperatura de equipo</label>
-            <div class="col-sm-10">
-              <input type="text" placeholder="Temperatura en Grado Celsius" class="form-control" name="residual[teamTemperature]">
-            </div>
-          </div>
-
-           <!-- Text input-->
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="textinput">Producto que maneja</label>
-            <div class="col-sm-10">
-              <select name="residual[product]" class="form-control" id="sel1">
-                <option value="llave" selected>llave</option>
-                <option value="termocupla">termocupla</option>
-                <option value="barometro">barometro</option>
-              </select>
-            </div>
-          </div>
-
+		           <!-- Text input-->
+		
+		         <div class="form-group ">
+			            <label class="col-sm-2 control-label" for="textinput">Producto que maneja</label>
+			            <div class="col-sm-8">
+				             <select name="residual[product]" class="form-control" id="sel1">
+				                <option value="llave" selected>llave</option>
+				                <option value="termocupla">termocupla</option>
+				                <option value="barometro">barometro</option>
+				             </select>
+			            </div>
+		         </div>
+		  
 
 
           

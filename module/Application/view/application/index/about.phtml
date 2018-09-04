@@ -16,15 +16,13 @@ $this->mainMenu()->setActiveItemId('about');
 	}
 </script>
 
-<h1 align="center"></h1>
 
-
-<div class="flex-container">
-<form id="formModule" method="POST" action="<?=$rutaAction?>" >
-	<?php foreach ($profileModules as $modules): ?>
-		<button onclick="llamarFuncion(<?php echo ($modules->getId()); ?>)" class="button glyphicon <?= $modules->getIcon()?>"> <?= $this->escapeHtml($modules->getName()) ?>
-		</button>	
-		<input type="hidden" id="custId" name="custId" value="">
-	<?php endforeach; ?> 	
-</form>
-</div>	
+	<div class="flex-container">
+		<form id="formModule" method="POST" action="<?=$rutaAction?>" >
+			<?php foreach ($profileModules as $modules): ?>
+				<button onclick="llamarFuncion(<?php echo ($modules->getId()); ?>)" class="button glyphicon <?= $modules->getIcon()?>"> <?= $this->escapeHtml($modules->getName()) ?>
+				</button>	
+				<input type="hidden" id="custId" name="custId" value="">
+			<?php endforeach; ?> 	
+		</form>
+	</div>	
