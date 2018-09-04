@@ -29,13 +29,13 @@ class OperationController extends AbstractActionController
         if ($this->getRequest()->isPost()) 
         {
             $data = $this->params()->fromPost();
-            // if ($this->formManager->addGeneral($data) != NULL)
-            //     echo("agregado");
+            
             
             $workPermit = $this->formManager->addNewWorkPermit($data);
             
+            //print_r($data['protection']);
+            //die(__FILE__);
             $this->redirect()->toRoute('about');
-
         }
         
         //falta cargar los tab de cada persona 
@@ -59,8 +59,11 @@ class OperationController extends AbstractActionController
     public function checkWorkPermitsAction()
     {
         
-        $permits = $this->formManager->findPermits();
+        $filter = array('id' => 'DESC ' );
+        
+        $permits = $this->formManager->findPermits($filter);
  
+        
         $view = new ViewModel(['permits'=>$permits
         ]);
         

@@ -17,17 +17,14 @@ class FormManager
         $this->entityManager = $entityManager;
     }
 
-
-    
+ 
     public function findPermits($filter = null) 
-    {
-        
+    {       
         $permits['general'] = $this->entityManager->getRepository(General::class)
-                    ->findBy(array(),array('id' => 'ASC' ));
+                    ->findBy(array(),$filter);
         $permits['residual'] = $this->entityManager->getRepository(Residual::class)
-                    ->findBy(array(),array('id' => 'ASC' ));
+                    ->findBy(array(),$filter);
         return $permits;
-
     }
 
 
