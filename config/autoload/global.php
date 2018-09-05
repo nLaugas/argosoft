@@ -42,7 +42,7 @@ return [
                     'port'     => '5432',
                     'user'     => 'postgres',
                     'password' => 'motorola',
-                    'dbname'   => 'argosoft',
+                    'dbname'   => 'test',
                 ]
             ],
         ],
