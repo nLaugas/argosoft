@@ -93,9 +93,60 @@
 -- );
 
 
--- \connect "argosoft";
+  -- \connect "argosoft";
 
 
+
+
+  CREATE TABLE permit (
+      id                       INT NOT NULL,
+      id_general_permit         INT,
+      id_protection_permit      INT,
+      id_enviromental_permit    INT,
+      id_residual_permit        INT,
+      CONSTRAINT  PK_PERMIT  PRIMARY KEY (id),
+      CONSTRAINT FK_GENERAL_PERMIT FOREIGN KEY (id_general_permit) REFERENCES general_permit(id),
+      CONSTRAINT FK_PROTECTION_PERMIT FOREIGN KEY (id_protection_permit) REFERENCES protection_permit(id),
+      CONSTRAINT FK_ENVIROMENTAL_PERMIT FOREIGN KEY (id_enviromental_permit) REFERENCES enviromental_permit(id),
+      CONSTRAINT FK_RESIDUAL_PERMIT FOREIGN KEY (id_residual_permit) REFERENCES residual_permit(id),
+  );    
+
+  CREATE TABLE general_permit (
+      id            INT NOT NULL,
+      date          TIMESTAMP(0) NOT NULL,
+      company       VARCHAR(256) NOT NULL, 
+      work_place    VARCHAR(256) NOT NULL, 
+      work_stage    VARCHAR(256) NOT NULL, 
+      work_activity VARCHAR(256) NOT NULL,  
+      CONSTRAINT PK_GENERAL_PERMIT PRIMARY KEY (id)
+  );
+
+  CREATE TABLE protection_state (
+      id            INT NOT NULL
+      name_state    VARCHAR(256) NOT NULL,
+      CONSTRAINT PK_PROTECTION_STATE PRIMARY KEY (id)
+  );
+
+  CREATE TABLE protection_permit (
+      id            INT NOT NULL,
+      id_state      INT NOT NULL,
+      CONSTRAINT FK_PROTECTION_STATE  FOREIGN KEY (id_state) REFERENCES protection_state(id),
+      CONSTRAINT PK_PROTECTION_PERMITS PRIMARY KEY (id)
+  );
+
+  CREATE TABLE residual_permit (
+      id               INT NOT NULL,
+      team_pressure    INT,
+      team_temperature INT,
+      products         VARCHAR(256) NOT NULL,    
+      CONSTRAINT PK_RESIDUAL_PERMITS PRIMARY KEY (id)
+  );
+  
+  CREATE TABLE enviromental_permit (
+      id            INT NOT NULL
+      
+      CONSTRAINT PK_ENVIROMENTAL_PERMIT PRIMARY KEY (id)
+  );
 
 DROP TABLE IF EXISTS "modulo";
 CREATE TABLE "public"."modulo" (
@@ -114,6 +165,7 @@ INSERT INTO "modulo" ("id", "name", "template", "id_module", "icon") VALUES
 (1, 'Agentes',  'agentes_template', NULL, 'glyphicon-phone-alt'),
 (4, 'Salir',  'logout', NULL, 'glyphicon-log-out');
 
+update modulo set name = 'Agentes', template = 'agentes_template', icon = 'glyphicon-phone-alt' where id=1;
 
 
 DROP TABLE IF EXISTS "operacion";
