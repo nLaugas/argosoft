@@ -1,5 +1,6 @@
 .wizard {
-  min-height: 600px;
+  position: relative;
+  min-height: 750px;
     margin: 20px auto;
     background: #e8e8e8;
     border-radius: 20px;
@@ -316,4 +317,7 @@ span.round-tab:hover {
 
 
 
-
+.keypad{
+    position: absolute;
+    bottom: 10px;
+}
