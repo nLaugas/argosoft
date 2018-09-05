@@ -50,7 +50,7 @@ $rutaAction = $this->url('operations');
 
       <!-- BOTONERA -->
       <br>
-      <div class="row between-xs align-top ">  
+      <div class="row between-xs keypad container">  
           <div class="col-xs-2">
               <a href="<?=$this->url('about');?>" class="btn btn-primary next-step glyphicon glyphicon-th btn-lg"></a>
           </div>
@@ -61,11 +61,16 @@ $rutaAction = $this->url('operations');
               <button type="button" class="btn btn-primary  next-step glyphicon glyphicon-arrow-right btn-lg"></button>
           </div> 
           <div class="col-xs-2">
-              <button type="submit" value="Submit" class="btn btn-primary  next-step glyphicon glyphicon-ok btn-lg"></button>
+              <button type="submit" value="Submit" class="btn btn-primary  next-step glyphicon glyphicon-ok btn-lg" ></button>
           </div>
       </div>
       <br>
       </form>          
   </div>
+<script type="text/javascript">
+    function add(){
+        alert("Permiso agregado exitosamente");
+    }
 
+</script>
    
