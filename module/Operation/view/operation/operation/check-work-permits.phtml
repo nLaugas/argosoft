@@ -1,5 +1,5 @@
 <?php  $permits ?>
-<h1>Permisos realizados</h1> 
+ 
 <style type="text/css"> 
 
 .filterable {
@@ -71,37 +71,40 @@
 });
 </script>
 	<div class="row">
-        <div class="panel panel-primary filterable">
-            <div class="panel-heading">
-                <h3 class="panel-title">Users</h3>
-                <div class="pull-right">
-                    <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
-                </div>
-            </div>
-            <table class="table" style="padding : 5%;">
-                <thead>
-                    <tr class="filters">
-                        <th><input type="text" class="form-control" placeholder="Id" disabled></th>
-                        <th><input type="text" class="form-control" placeholder="Date" disabled></th>
-                        <th><input type="text" class="form-control" placeholder="Empresa" disabled></th>
-                        <th><input type="text" class="form-control" placeholder="Lugar de trabajo" disabled></th>
-                        <th><input type="text" class="form-control" placeholder="Etapa" disabled></th>
-                        <th><input type="text" class="form-control" placeholder="Actividad" disabled></th>
-                    </tr>
-                </thead>
-                <tbody>
-                  
-		            <?php  foreach($permits['general'] as $row):?> 
-		            <tr>
-		                <td><?=$row->getId();?></td>
-		                <td><?=$row->getDate();?></td>
-		                <td><?=$row->getCompany();?></td>
-		                <td><?=$row->getWorkPlace();?></td>
-		                <td><?=$row->getWorkStage();?></td>
-		                <td><?=$row->getWorkActivity();?></td>
-		            </tr>
-				    <?php endforeach;?>
-                </tbody>
-            </table>
-        </div>
-    </div>
+		<div class="col-xs-12">
+			<h1>Permisos realizados</h1>
+	        <div class="panel panel-primary filterable">
+	            <div class="panel-heading">
+	                <h3 class="panel-title">Users</h3>
+	                <div class="pull-right">
+	                    <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+	                </div>
+	            </div>
+	            <table class="table" style="padding : 5%;">
+	                <thead>
+	                    <tr class="filters">
+	                        <th><input type="text" class="form-control" placeholder="Id" disabled></th>
+	                        <th><input type="text" class="form-control" placeholder="Date" disabled></th>
+	                        <th><input type="text" class="form-control" placeholder="Empresa" disabled></th>
+	                        <th><input type="text" class="form-control" placeholder="Lugar de trabajo" disabled></th>
+	                        <th><input type="text" class="form-control" placeholder="Etapa" disabled></th>
+	                        <th><input type="text" class="form-control" placeholder="Actividad" disabled></th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                  
+			            <?php  foreach($permits['general'] as $row):?> 
+			            <tr>
+			                <td><?=$row->getId();?></td>
+			                <td><?=$row->getDate();?></td>
+			                <td><?=$row->getCompany();?></td>
+			                <td><?=$row->getWorkPlace();?></td>
+			                <td><?=$row->getWorkStage();?></td>
+			                <td><?=$row->getWorkActivity();?></td>
+			            </tr>
+					    <?php endforeach;?>
+	                </tbody>
+	            </table>
+	        </div>
+	    </div>
+	</div>
