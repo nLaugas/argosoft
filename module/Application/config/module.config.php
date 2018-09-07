@@ -34,13 +34,13 @@ return [
                     ],
                 ],
             ],
-            'about' => [
+            'modules' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route'    => '/about',
+                    'route'    => '/modules',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
-                        'action'     => 'about',
+                        'action'     => 'modules',
                     ],
                 ],
             ],            
@@ -68,7 +68,7 @@ return [
                 // Allow anyone to visit "index" and "about" actions
                 ['actions' => ['index'], 'allow' => '*'],
                 // Allow authorized users to visit "settings" action
-                ['actions' => ['settings','about'], 'allow' => '@']
+                ['actions' => ['settings','modules'], 'allow' => '@']
             ],
         ]
     ],

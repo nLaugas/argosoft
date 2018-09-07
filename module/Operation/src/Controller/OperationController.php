@@ -7,6 +7,7 @@ use DBAL\Entity\Operation;
 use DBAL\Entity\Tab;
 use DBAL\Entity\General;
 use Operation\view;
+use Zend\Mvc\MvcEvent;
 
 class OperationController extends AbstractActionController
 {
@@ -24,7 +25,17 @@ class OperationController extends AbstractActionController
 
     }
     
+     public function onDispatch(MvcEvent $e)
+      {
+        // Call the base class' onDispatch() first and grab the response
+        $response = parent::onDispatch($e);
 
+        // Set alternative layout
+        //$this->setTemplate('layout/layout1');
+
+        // Return the response
+        return $response;
+      }
     public function indexAction()
     {
        
@@ -37,7 +48,7 @@ class OperationController extends AbstractActionController
             
             //print_r($data['protection']);
             //die(__FILE__);
-            $this->redirect()->toRoute('about');
+            $this->redirect()->toRoute('modules');
         }
         
         //falta cargar los tab de cada persona 

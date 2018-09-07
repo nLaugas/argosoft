@@ -46,7 +46,7 @@ class IndexController extends AbstractActionController
     /**
      * This is the "about" action. It is used to display the "About" page.
      */
-    public function aboutAction() 
+    public function modulesAction() 
     {              
 
         if ($this->getRequest()->isPost()) {
@@ -62,7 +62,7 @@ class IndexController extends AbstractActionController
             $operations = $module->getOperations();
             
             if ($operations[0] != NULL){
-                //si el modulo tiene modulos 
+                //si el modulo tiene otros modulos 
                 $this->redirect()->toRoute($operations[0]->getRoute());
             }
             else{                
@@ -80,7 +80,7 @@ class IndexController extends AbstractActionController
         //obtiene los perfiles del usuario
         $profiles = $userLog->getProfiles();
         
-        //obtiene los modulos del perfil primer perfil 
+        //obtiene los modulos del primer perfil 
         $modules = $profiles[0]->getModules();    
                     /*
                     foreach ($modules as  $m) {

@@ -112,7 +112,7 @@ class AuthController extends AbstractActionController
                     
                     
                     if(empty($redirectUrl)) {   
-                        return $this->redirect()->toRoute('about');
+                        return $this->redirect()->toRoute('modules');
                         //return $this->redirect()->toRoute('users',['action'=>'add']);
                     } else {
                         $this->redirect()->toUrl($redirectUrl); 
