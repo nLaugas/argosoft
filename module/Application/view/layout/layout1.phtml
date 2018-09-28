@@ -1,0 +1,77 @@
+<?= $this->doctype() ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?= $this->headTitle('Argosoft')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?= $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+                        ->prependStylesheet($this->basePath('css/style.css'))
+                        ->prependStylesheet($this->basePath('css/login/login.css'))
+                        ->prependStylesheet($this->basePath('css/modules/modules.css'))
+                        ->prependStylesheet($this->basePath('css/operation/permits/cold.css'))
+                        ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
+                        ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+                        ->prependStylesheet($this->basePath('css/flexboxgrid.min.css'))
+                        ->prependStylesheet($this->basePath('css/operation/permits/forms/multi-select.css'))
+        ?>
+
+        <!-- Scripts -->
+        <?= $this->headScript()
+            ->prependFile($this->basePath('js/bootstrap.min.js'))
+            ->prependFile($this->basePath('js/jquery-2.2.4.min.js'))
+        ?>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row  ">
+                <!-- Page header -->
+                <div class="col-xs-12">
+                    <div class="app-caption">Sistema de Permiso de Trabajo</div>
+                </div>                
+            </div>
+       
+            <div class="row container">
+                <div id="content" class="col-xs-12 content">
+                    <script type="text/javascript" src ="js/operation/permits/cold.js"></script>
+
+
+
+    
+                          <div class="wizard ">
+                                  <?= $this->content; ?>
+                              
+                              <!-- BOTONERA -->
+                              <br>
+                              <div class="row between-xs keypad container">  
+                                  <div class="col-xs-2">
+                                      <a id="btn-menu" href="<?=$this->url('modules');?>" class="btn btn-primary  glyphicon glyphicon-th btn-lg"></a>
+                                  </div>
+                                  <div class="col-xs-2">
+                                      <button id="btn-left" type="button" class="btn btn-default prev-step glyphicon glyphicon-arrow-left btn-lg"></button>
+                                  </div>
+                                  <div class="col-xs-2">
+                                      <button id="btn-right" type="button" class="btn btn-primary  next-step glyphicon glyphicon-arrow-right btn-lg"></button>
+                                  </div> 
+                                  <div class="col-xs-2">
+                                      <button id="btn-submit" type="submit" value="Submit" class="btn btn-primary submit  glyphicon glyphicon-ok btn-lg" ></button>
+                                  </div>
+                              </div>
+                              <br>          
+                          </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <?= $this->inlineScript() ?>
+    </body>
+</html>
+

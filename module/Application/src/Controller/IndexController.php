@@ -71,7 +71,7 @@ class IndexController extends AbstractActionController
             }
         }
 
-
+        
 
         //obtiene el usuario que esta registrado
         $userLog = $this->entityManager->getRepository(User::class)
@@ -81,7 +81,7 @@ class IndexController extends AbstractActionController
         $profiles = $userLog->getProfiles();
         
         //obtiene los modulos del primer perfil 
-        $modules = $profiles[0]->getModules();    
+        $modules = $profiles[0]->getModules();   
                     /*
                     foreach ($modules as  $m) {
                         echo $m->getName();
