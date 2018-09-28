@@ -31,11 +31,34 @@ class Module
         // Get event manager.
         $eventManager = $event->getApplication()->getEventManager();
         $sharedEventManager = $eventManager->getSharedManager();
-        // Register the event listener method. 
+        // Register the event listener method.
+        $sharedEventManager->attach(AbstractActionController::class, MvcEvent::EVENT_DISPATCH, [$this, 'setLayout'], -100); // - postDispach , + presDispach 
         $sharedEventManager->attach(AbstractActionController::class, 
                 MvcEvent::EVENT_DISPATCH, [$this, 'onDispatch'], 100);
+
+
+
     }
+    public function setLayout($e) {
+        $matches = $e->getRouteMatch();
+        $controller = $matches->getParam('controller');
+        $action = $matches->getParam('action');
+        
+        
+        if ((0 !== strpos($controller, __NAMESPACE__, 0))) {
     
+        // NO es un controlador del modulo
+        return;
+        }
+        if ($action == 'login') {
+    
+        //  es la action login
+        return;
+        }
+        // Cambia el layout
+        $viewModel = $e->getViewModel();
+        $viewModel->setTemplate('layout/layout1');
+    }
     /**
      * Event listener method for the 'Dispatch' event. We listen to the Dispatch
      * event to call the access filter. The access filter allows to determine if

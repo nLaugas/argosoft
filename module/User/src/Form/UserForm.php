@@ -94,7 +94,27 @@ class UserForm extends Form
                 ],
             ]);
         }
-        
+
+         // Add "profile" field
+        $this->add([            
+            'type'  => 'select',
+            'name' => 'profile',
+            'attributes' => [
+                'multiple' => 'multiple',
+            ],
+            'options' => [
+                'label' => 'Perfil',
+            ],
+        ]);
+        // Add "company" field
+        $this->add([            
+            'type'  => 'text',
+            'name' => 'company_name',            
+            'options' => [
+                'label' => 'Nombre de Empresa',
+            ],
+        ]);
+
         // Add "status" field
         $this->add([            
             'type'  => 'select',
@@ -107,6 +127,8 @@ class UserForm extends Form
                 ]
             ],
         ]);
+
+
         
         // Add the Submit button
         $this->add([
@@ -222,6 +244,18 @@ class UserForm extends Form
                 ],                
                 'validators' => [
                     ['name'=>'InArray', 'options'=>['haystack'=>[1, 2]]]
+                ],
+            ]); 
+
+        $inputFilter->add([
+                'class'    => ArrayInput::class,
+                'name'     => 'profile',
+                'required' => true,
+                'filters'  => [                    
+                    ['name' => 'ToInt'],
+                ],                
+                'validators' => [
+                    ['name'=>'GreaterThan', 'options'=>['min'=>0]]
                 ],
             ]);        
     }           

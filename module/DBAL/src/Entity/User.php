@@ -4,6 +4,7 @@ namespace DBAL\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use DBAL\Entity\Profile;
+use DBAL\Entity\Company;
 /**
  * This class represents a registered user.
  * @ORM\Entity()
@@ -74,10 +75,33 @@ class User
 
 
     protected $profiles;
-    /**
-     * Returns user ID.
-     * @return integer
-     */
+
+     /**
+   * @ORM\OneToMany(targetEntity="Company", mappedBy="contractor")
+   * @ORM\JoinColumn(name="id", referencedColumnName="id_user")
+   */
+    protected $company;
+
+
+
+    public function __construct() 
+    {
+        $this->profiles = new ArrayCollection();
+        
+    }
+
+    public function getCompany()
+    {
+        return $this->company;
+    }
+    
+    public function setCompany($company)
+    {
+        $this->company = $company;
+        
+    }
+
+
     public function getId() 
     {
         return $this->id;

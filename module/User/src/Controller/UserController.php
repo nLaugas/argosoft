@@ -4,9 +4,11 @@ namespace User\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use DBAL\Entity\User;
+use DBAL\Entity\Profile;
 use User\Form\UserForm;
 use User\Form\PasswordChangeForm;
 use User\Form\PasswordResetForm;
+use Zend\Mvc\MvcEvent;
 
 /**
  * El UserController contendrá la funcionalidad para el manejo de usuario (añadir, editar, cambio de 
@@ -35,7 +37,7 @@ class UserController extends AbstractActionController
         $this->entityManager = $entityManager;
         $this->userManager = $userManager;
     }
-    
+     
     /**
      * This is the default "index" action of the controller. It displays the 
      * list of users.
@@ -60,6 +62,15 @@ class UserController extends AbstractActionController
     {
         // Create user form
         $form = new UserForm('create', $this->entityManager);
+       
+        $allProfiles = $this->entityManager->getRepository(Profile::class)
+                ->findBy([], ['name'=>'ASC']);
+        $profileList = [];
+        foreach ($allProfiles as $profile) {
+            $profileList[$profile->getId()] = $profile->getName();
+        }
+        
+        $form->get('profile')->setValueOptions($profileList);
         
         // Check if user has submitted the form
         if ($this->getRequest()->isPost()) {

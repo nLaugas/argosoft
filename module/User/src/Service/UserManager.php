@@ -2,6 +2,8 @@
 namespace User\Service;
 
 use DBAL\Entity\User;
+use DBAL\Entity\Profile;
+use DBAL\Entity\Company;
 use Zend\Crypt\Password\Bcrypt;
 use Zend\Math\Rand;
 
@@ -48,11 +50,24 @@ class UserManager
         $user->setPassword($passwordHash);
         
         $user->setStatus($data['status']);
+        $profileId = $data['profile']; //el form retorna un [] ya que puede seleccionar varios perfiles, lo mejor seria ciclar y agregar todos.
         
+        $profile = $this->entityManager->getRepository(Profile::class)
+                    ->findOneById($profileId[0]);
+        $user->addProfile($profile);
+
+        $company = new Company();
+        $company->setName($data['company_name']);
+        $company->setContractor($user);
+        
+
+
         $currentDate = date('Y-m-d H:i:s');
         $user->setDateCreated($currentDate);        
-                
+        $company->setDateCreated($currentDate);
+
         // Add the entity to the entity manager.
+        $this->entityManager->persist($company);
         $this->entityManager->persist($user);
         
         // Apply changes to database.

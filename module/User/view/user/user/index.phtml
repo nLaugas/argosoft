@@ -9,16 +9,10 @@ $this->pageBreadcrumbs()->setItems([
             ]);
 ?>
 
-<h1>Manage Users</h1>
+<h1 align="center">Usuarios</h1>
 
-<p>
-<a class="btn btn-default" href="
-    <?= $this->url('users', ['action'=>'add']); ?>">
-    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New User
-</a>
-</p>
-
-<table class="table table-striped">
+<br>
+<table class="table table-striped ">
 
    <tr>
         <th>ID</th>
@@ -58,3 +52,20 @@ $this->pageBreadcrumbs()->setItems([
     
 </table>
 
+<script type="text/javascript">
+    $(document).ready(function(){
+        document.getElementById("btn-left").style.display = "none";
+        document.getElementById("btn-right").style.display = "none";
+        document.getElementById("btn-submit").style.display = "block";
+
+        document.getElementById("btn-submit").classList.remove('glyphicon-ok');
+        document.getElementById("btn-submit").classList.add('glyphicon-plus');
+        
+        var att = document.createAttribute("onClick");        
+        att.value = 'location.href= "users/add"';
+        
+        document.getElementById("btn-submit").setAttributeNode(att);
+
+
+ });
+</script>
