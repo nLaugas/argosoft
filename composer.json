@@ -33,7 +33,8 @@
             "Application\\": "module/Application/src/",
             "User\\": "module/User/src/",
             "DBAL\\": "module/DBAL/src/",
-            "Operation\\": "module/Operation/src/"
+            "Operation\\": "module/Operation/src/",
+            "Personal\\": "module/Personal/src/"
         }
     },
     "autoload-dev": {
@@ -43,16 +44,16 @@
         }
     },
     "extra": [],
-      "scripts": {
-            "cs-check": "phpcs",
-            "cs-fix": "phpcbf",
-            "development-disable": "zf-development-mode disable",
-            "development-enable": "zf-development-mode enable",
-            "development-status": "zf-development-mode status",
-            "post-create-project-cmd": [
-                "@development-enable"
-            ],
-            "serve": "php -S 0.0.0.0:8080 -t public public/index.php",
-            "test": "phpunit"
-        }
+    "scripts": {
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "development-disable": "zf-development-mode disable",
+        "development-enable": "zf-development-mode enable",
+        "development-status": "zf-development-mode status",
+        "post-create-project-cmd": [
+            "@development-enable"
+        ],
+        "serve": "php -S 0.0.0.0:8080 -t public public/index.php",
+        "test": "phpunit"
+    }
 }
