@@ -1,0 +1,64 @@
+<?php
+$this->headTitle('Personal');
+
+
+?>
+
+<h1 align="center">Personal</h1>
+<br>
+
+
+<table class="table table-striped ">
+
+   <tr>
+        <th>ID</th>
+        <th>E-mail</th>
+        <th>Nombre</th>
+        <th>Antigüedad</th>
+        <th>Fecha de Creación</th>     
+        <th>Actions</th>        
+    </tr>
+    
+    <?php foreach ($personal as $pers): ?>
+    
+    <tr>
+        <td><?= $this->escapeHtml($pers->getId()); ?></td>
+        <td>
+            <a href="<?= $this->url('personal', ['action'=>'view', 'id'=>$pers->getId()]); ?>">
+                <?= $this->escapeHtml($pers->getEmail()); ?>
+            </a> 
+        </td>
+        <td><?= $this->escapeHtml($pers->getFullName()); ?></a> 
+        </td>
+        <td><?= $this->escapeHtml($pers->getSeniority()); ?></a> 
+        </td>
+        <td><?= $this->escapeHtml($pers->getDateCreated()); ?></td>        
+        <td>
+            <a class="btn btn-info" href="<?= $this->url('personal', 
+                    ['action'=>'edit', 'id'=>$pers->getId()]); ?>">
+                <span class="glyphicon glyphicon-pencil" ></span> Edit
+            </a>
+        </td>    
+    </tr>
+        
+    <?php endforeach; ?>   
+    
+</table>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        document.getElementById("btn-left").style.display = "none";
+        document.getElementById("btn-right").style.display = "none";
+        document.getElementById("btn-submit").style.display = "block";
+
+        document.getElementById("btn-submit").classList.remove('glyphicon-ok');
+        document.getElementById("btn-submit").classList.add('glyphicon-plus');
+        
+        var att = document.createAttribute("onClick");        
+        att.value = 'location.href= "personal/add"';
+        
+        document.getElementById("btn-submit").setAttributeNode(att);
+
+
+ });
+</script>

@@ -30,5 +30,6 @@ return [
     'Application',
     'User',
     'DBAL',
-    'Operation'
+    'Operation',
+    'Personal'
 ];
