@@ -17,7 +17,7 @@ class FormManager
         $this->entityManager = $entityManager;
     }
 
- 
+    
     public function findPermits($filter = null) 
     {       
         $permits['general'] = $this->entityManager->getRepository(General::class)

@@ -12,6 +12,7 @@ return [
     'controllers' => [
         'factories' => [
             Controller\OperationController::class => Controller\Factory\OperationControllerFactory::class,
+            Controller\OperationContractorController::class => Controller\Factory\OperationContractorControllerFactory::class,
         ],
     ],
     'view_manager' => [
@@ -42,6 +43,30 @@ return [
                     ],
                 ],
             ],
+
+            'art' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/art',
+                    'defaults' => [
+                        'controller' => Controller\OperationContractorController::class,
+                        'action'     => 'art',
+                    ],
+                ],
+            ],
+
+            'company' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/company',
+                    'defaults' => [
+                        'controller' => Controller\OperationContractorController::class,
+                        'action'     => 'company',
+                    ],
+                ],
+            ],
+
+            
             
         ],
     ],  

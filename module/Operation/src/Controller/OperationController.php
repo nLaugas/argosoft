@@ -8,6 +8,7 @@ use DBAL\Entity\Tab;
 use DBAL\Entity\General;
 use Operation\view;
 use Zend\Mvc\MvcEvent;
+use Zend\I18n\Translator\Translator;
 
 class OperationController extends AbstractActionController
 {
@@ -22,23 +23,11 @@ class OperationController extends AbstractActionController
     {
         $this->entityManager = $entityManager;
         $this->formManager = $formManager;
-
     }
     
-     public function onDispatch(MvcEvent $e)
-      {
-        // Call the base class' onDispatch() first and grab the response
-        $response = parent::onDispatch($e);
-
-        // Set alternative layout
-        //$this->setTemplate('layout/layout1');
-
-        // Return the response
-        return $response;
-      }
+    
     public function indexAction()
     {
-       
         if ($this->getRequest()->isPost()) 
         {
             $data = $this->params()->fromPost();
@@ -62,8 +51,10 @@ class OperationController extends AbstractActionController
             $forms[$tab->getName()]= file_get_contents(__DIR__. '../../../view/operation/form/'.$tab->getName().'.phtml');
         }
 
+
+
         $view = new ViewModel(['tabs'=>$tabs,
-                                'forms'=>$forms
+                                'forms'=>$forms,
         ]);
 
 
@@ -75,10 +66,11 @@ class OperationController extends AbstractActionController
         $filter = array('id' => 'DESC ' );
         
         $permits = $this->formManager->findPermits($filter);
- 
-        
-        $view = new ViewModel(['permits'=>$permits
+
+        $view = new ViewModel(['permits'=>$permits,
+                                'texts'=>$texts
         ]);
+        
         
 
         return $view;   
