@@ -1,0 +1,48 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        document.getElementById("btn-left").style.display = "none";
+        document.getElementById("btn-right").style.display = "none";
+        document.getElementById("btn-submit").style.display = "block";
+        document.getElementById("personal-form").action = "personal"; 
+
+    });
+</script>
+ <?php
+$form = $this->form;
+$form->prepare();
+?>
+
+<h1>Personal</h1>
+<br>
+
+<div class="row ">
+  <div class="col-xs-12 ">
+    <?= $this->form()->openTag($form); ?>
+    
+    <div class="form-group">
+      <?= $this->formLabel($form->get('personal-name')); ?>
+      <?= $this->formElement($form->get('personal-name')); ?>
+      <?= $this->formElementErrors($form->get('personal-name')); ?>
+    </div>
+    
+    <div class="form-group">
+      <?= $this->formLabel($form->get('personal-email')); ?>
+      <?= $this->formElement($form->get('personal-email')); ?>
+      <?= $this->formElementErrors($form->get('personal-email')); ?>
+    </div>
+
+    <div class="form-group">
+      <?= $this->formLabel($form->get('personal-cuit')); ?>
+      <?= $this->formElement($form->get('personal-cuit')); ?>
+      <?= $this->formElementErrors($form->get('personal-cuit')); ?>
+    </div>
+    
+    <div class="form-group">
+      <?= $this->formLabel($form->get('personal-seniority')); ?>
+      <?= $this->formElement($form->get('personal-seniority')); ?>
+      <?= $this->formElementErrors($form->get('personal-seniority')); ?>
+    </div>
+
+    
+  </div>
+</div>

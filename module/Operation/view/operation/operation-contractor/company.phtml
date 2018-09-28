@@ -1,0 +1,56 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        document.getElementById("btn-left").style.display = "none";
+        document.getElementById("btn-right").style.display = "none";
+        document.getElementById("btn-submit").style.display = "block";
+        document.getElementById("company-form").action = "company"; 
+
+    });
+</script>
+ <?php
+$form = $this->form;
+ $form->get('company-email')->setAttributes([
+     'value'=>$company->getEmail(), 
+      
+     ]);
+$form->get('company-cuit')->setAttributes([
+     'value'=>$company->getCuit(), 
+      
+     ]);
+$form->get('company-address')->setAttributes([
+     'value'=>$company->getAddress(), 
+      
+     ]);
+$form->prepare();
+?>
+
+<h1>Empresa <?= $company->getName() ?></h1>
+<br>
+
+<div class="row ">
+  <div class="col-xs-12 ">
+    <?= $this->form()->openTag($form); ?>
+    
+    
+    
+    <div class="form-group">
+      <?= $this->formLabel($form->get('company-email')); ?>
+      <?= $this->formElement($form->get('company-email')); ?>
+      <?= $this->formElementErrors($form->get('company-email')); ?>
+    </div>
+
+    <div class="form-group">
+      <?= $this->formLabel($form->get('company-cuit')); ?>
+      <?= $this->formElement($form->get('company-cuit')); ?>
+      <?= $this->formElementErrors($form->get('company-cuit')); ?>
+    </div>
+
+    <div class="form-group">
+      <?= $this->formLabel($form->get('company-address')); ?>
+      <?= $this->formElement($form->get('company-address')); ?>
+      <?= $this->formElementErrors($form->get('company-address')); ?>
+    </div>
+
+    
+  </div>
+</div>
