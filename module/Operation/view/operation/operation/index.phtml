@@ -1,28 +1,30 @@
 <?php
-$this->headTitle('Permisos');
-$this->mainMenu()->setActiveItemId('Modulos');
 $rutaAction = $this->url('operations'); 
 ?>
-<script type="text/javascript" src ="js/operation/permits/cold.js"></script>
+<script type="text/javascript" src ="js/operation/permits/cold.js"> 
+
+      
+
+</script>
 
 
 
     
-  <div class="wizard ">
+  
       
       <!-- PESTAÑAS -->  
       <div class="wizard-inner ">
           <div class="connecting-line"></div>
           <ul class="nav nav-tabs" role="tablist">
-              <?php foreach ($tabs as $key=> $tab): ?>
+              <?php $i=0; foreach ($tabs as $key=> $tab):?>
                   <li role="presentation" class=<?=($key == 0) ?  "active" :  "disabled"?>>
-                      <a href="#<?=$tab->getName()?>" data-toggle="tab" aria-controls="step<?=  $i?>" role="tab" title="Step<?=  $i?>">
+                      <a href="#<?=$i?>" data-toggle="tab" aria-controls="step<?=  $i?>" role="tab" title="Step<?=  $i?>">
                           <span class="round-tab">
                               <i ><?=$tab->getName()?></i>
                           </span>
                       </a>
                   </li>
-              <?php endforeach;?> 
+              <?php $i++; endforeach;?> 
           </ul>
       </div>
       <!-- FORMULARIOS DE PERMISOS-->
@@ -32,7 +34,7 @@ $rutaAction = $this->url('operations');
               <form enctype='application/json' class="form-horizontal" role="form" method="POST" action="<?=$rutaAction?>" >
                   <div class="tab-content ">  
                       <?php $i = 1; foreach ($forms as $key => $form):?>
-                          <div class="tab-pane <?=($i == 1) ?  "active" :  " "?>" role="tabpanel" id="<?=$key?>">
+                          <div class="tab-pane <?=($i == 1) ?  "active" :  " "?>" role="tabpanel" id="<?=$i?>">
                           
                           <div class="row center-xs">
                               <div class="col-xs-12 ">
@@ -48,29 +50,3 @@ $rutaAction = $this->url('operations');
           </div>
       </div>
 
-      <!-- BOTONERA -->
-      <br>
-      <div class="row between-xs keypad container">  
-          <div class="col-xs-2">
-              <a href="<?=$this->url('modules');?>" class="btn btn-primary next-step glyphicon glyphicon-th btn-lg"></a>
-          </div>
-          <div class="col-xs-2">
-              <button type="button" class="btn btn-default prev-step glyphicon glyphicon-arrow-left btn-lg"></button>
-          </div>
-          <div class="col-xs-2">
-              <button type="button" class="btn btn-primary  next-step glyphicon glyphicon-arrow-right btn-lg"></button>
-          </div> 
-          <div class="col-xs-2">
-              <button type="submit" value="Submit" class="btn btn-primary  next-step glyphicon glyphicon-ok btn-lg" ></button>
-          </div>
-      </div>
-      <br>
-      </form>          
-  </div>
-<script type="text/javascript">
-    function add(){
-        alert("Permiso agregado exitosamente");
-    }
-
-</script>
-   
