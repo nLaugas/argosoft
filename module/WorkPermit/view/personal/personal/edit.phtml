@@ -1,0 +1,57 @@
+<?php
+$this->headTitle('Editar Personal');
+
+
+
+$form->get('email')->setAttributes([
+    'class'=>'form-control', 
+    'placeholder'=>'name@example.com'
+    ]);
+
+$form->get('full_name')->setAttributes([
+    'class'=>'form-control', 
+    'placeholder'=>'John Doe'
+    ]);
+
+$form->get('seniority')->setAttributes([
+    'class'=>'form-control', 
+    'placeholder'=>'En años'
+    ]);
+
+
+$form->prepare();
+?>
+
+<h1 align="center">Editar Personal <?= $this->escapeHtml($personal->getEmail()) ?></h1>
+<br>
+<div class="row">
+    <div class="col-xs-12">
+        <?= $this->form()->openTag($form); ?>
+        
+        <div class="form-group">
+            <?= $this->formLabel($form->get('email')); ?>
+            <?= $this->formElement($form->get('email')); ?>
+            <?= $this->formElementErrors($form->get('email')); ?>                  
+        </div>
+        
+        <div class="form-group">
+            <?= $this->formLabel($form->get('full_name')); ?>
+            <?= $this->formElement($form->get('full_name')); ?>
+            <?= $this->formElementErrors($form->get('full_name')); ?>                  
+        </div>
+        <div class="form-group">
+            <?= $this->formLabel($form->get('seniority')); ?>
+            <?= $this->formElement($form->get('seniority')); ?>
+            <?= $this->formElementErrors($form->get('seniority')); ?>                  
+        </div>
+       
+    </div>    
+</div>   
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        document.getElementById("btn-left").style.display = "none";
+        document.getElementById("btn-right").style.display = "none";
+
+ });
+</script>
