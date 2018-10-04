@@ -34,7 +34,8 @@
             "User\\": "module/User/src/",
             "DBAL\\": "module/DBAL/src/",
             "Operation\\": "module/Operation/src/",
-            "Personal\\": "module/Personal/src/"
+            "Personal\\": "module/Personal/src/",
+            "WorkPermit\\": "module/WorkPermit/src/"
         }
     },
     "autoload-dev": {

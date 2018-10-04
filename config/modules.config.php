@@ -31,5 +31,6 @@ return [
     'User',
     'DBAL',
     'Operation',
-    'Personal'
+    'Personal',
+    'WorkPermit'
 ];
