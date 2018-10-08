@@ -1,19 +1,17 @@
 <?php
-namespace Personal\Controller;
+namespace WorkPermit\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use DBAL\Entity\Personal\Personal; //verificar porque deberia andar DBAL\Entity\Personal
-use Personal\Form\PersonalForm;
+use WorkPermit\Form\WorkPermitForm;
 use Zend\Mvc\MvcEvent;
-use DBAL\Entity\User;
-use DBAL\Entity\Company;
+
 
 /**
  * El UserController contendrá la funcionalidad para el manejo de usuario (añadir, editar, cambio de 
  * contraseña, etc).
  */
-class PersonalController extends AbstractActionController 
+class WorkPermitController extends AbstractActionController 
 {
     /**
      * Entity manager.
@@ -25,17 +23,17 @@ class PersonalController extends AbstractActionController
      * User manager.
      * @var User\Service\UserManager 
      */
-    private $personalManager;
+    private $workPermitManager;
     
     /**
      * Constructor. 
      */
     
     
-    public function __construct($entityManager, $personalManager)
+    public function __construct($entityManager, $workPermitManager)
     {
         $this->entityManager = $entityManager;
-        $this->personalManager = $personalManager;
+        $this->workPermitManager = $workPermitManager;
     }
      
     /**
@@ -46,16 +44,10 @@ class PersonalController extends AbstractActionController
     {
         
           //obtiene el contratista que esta registrado
-        $contractorLog = $this->entityManager->getRepository(User::class)
-                    ->findOneByEmail($this->identity());
-        //la empresa del contratista
-        $company = $contractorLog->getCompany();
         
-        $personal = $this->entityManager->getRepository(Personal::class)
-                ->findBy(['company'=>$company[0]]);
         
         return new ViewModel([
-            'personal' => $personal
+            'personal' => "index de Permisos"
         ]);
     } 
     
@@ -70,13 +62,10 @@ class PersonalController extends AbstractActionController
         
          
 
-        $form = new PersonalForm('create', $this->entityManager);
+        $form = new WorkPermitForm('create', $this->entityManager);
         // Check if user has submitted the form
 
-        $contractorLog = $this->entityManager->getRepository(User::class)
-                    ->findOneByEmail($this->identity());
-        //la empresa del contratista
-        $company = $contractorLog->getCompany();
+        
         
 
         if ($this->getRequest()->isPost()) {
@@ -91,12 +80,11 @@ class PersonalController extends AbstractActionController
                 // Get filtered and validated data
                 $data = $form->getData();
                 // Add user.
-                $data['company'] = $company[0];
-                $personal = $this->personalManager->addPersonal($data);
+                $workPermit = $this->workPermitManager->addWorkPermit($data);
                 
                 // Redirect to "view" page
-                return $this->redirect()->toRoute('personal', 
-                        ['action'=>'view', 'id'=>$personal->getId()]);                
+                return $this->redirect()->toRoute('workPermit', 
+                        ['action'=>'view', 'id'=>$workPermit->getId()]);                
             }               
         } 
         
@@ -117,16 +105,16 @@ class PersonalController extends AbstractActionController
         }
         
         // Find a user with such ID.
-        $personal = $this->entityManager->getRepository(Personal::class)
+        $workPermit = $this->entityManager->getRepository(Permit::class)
                 ->find($id);
         
-        if ($personal == null) {
+        if ($workPermit == null) {
             $this->getResponse()->setStatusCode(404);
             return;
         }
                 
         return new ViewModel([
-            'personal' => $personal
+            'workPermit' => $workPermit
         ]);
     }
     
@@ -142,15 +130,15 @@ class PersonalController extends AbstractActionController
             return;
         }
         
-        $personal = $this->entityManager->getRepository(Personal::class)
+        $workPermit = $this->entityManager->getRepository(WorkPermit::class)
                 ->find($id);
         
-        if ($personal == null) {
+        if ($workPermit == null) {
             $this->getResponse()->setStatusCode(404);
             return;
         }
         // Create user form
-        $form = new PersonalForm('update', $this->entityManager, $personal);
+        $form = new WorkPermitForm('update', $this->entityManager, $workPermit);
         
         // Check if user has submitted the form
         if ($this->getRequest()->isPost()) {
@@ -167,17 +155,17 @@ class PersonalController extends AbstractActionController
                 $data = $form->getData();
                 
                 // Update the user.
-                $this->personalManager->updatePersonal($personal, $data);
+                $this->workPermitManager->updateWorkPermit($workPermit, $data);
                 
                 // Redirect to "view" page
-                return $this->redirect()->toRoute('personal', 
-                        ['action'=>'view', 'id'=>$personal->getId()]);                
+                return $this->redirect()->toRoute('workPermit', 
+                        ['action'=>'view', 'id'=>$workPermit->getId()]);                
             }               
         } else {
             $form->setData(array(
-                    'full_name'=>$personal->getFullName(),
-                    'email'=>$personal->getEmail(),                    
-                    'seniority'=>$personal->getSeniority(),                    
+                    'data'=>$workPermit->getDataCreated(),
+                    'email'=>$workPermit->getEmail(),                    
+                    'seniority'=>$workPermit->getSeniority(),                    
                 ));
         }
         

@@ -1,23 +1,23 @@
 <?php
-namespace Personal\Controller\Factory;
+namespace WorkPermit\Controller\Factory;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Personal\Controller\PersonalController;
-use Personal\Service\PersonalManager;
+use WorkPermit\Controller\WorkPermitController;
+use WorkPermit\Service\WorkPermitManager;
 
 /**
  * This is the factory for UserController. Its purpose is to instantiate the
  * controller and inject dependencies into it.
  */
-class PersonalControllerFactory implements FactoryInterface
+class WorkPermitControllerFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
-        $personalManager = $container->get(PersonalManager::class);
+        $workPermitManager = $container->get(WorkPermitManager::class);
         
         // Instantiate the controller and inject dependencies
-        return new PersonalController($entityManager, $personalManager);
+        return new WorkPermitController($entityManager, $workPermitManager);
     }
 }

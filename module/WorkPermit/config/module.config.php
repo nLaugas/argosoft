@@ -1,5 +1,5 @@
 <?php
-namespace Personal;
+namespace WorkPermit;
 
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
@@ -8,10 +8,10 @@ use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 return [
     'router' => [
         'routes' => [
-            'personal' => [
+            'workPermit' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/personal[/:action[/:id]]',
+                    'route'    => '/workPermit[/:action[/:id]]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id' => '[a-zA-Z0-9_-]*',
@@ -26,7 +26,7 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\PersonalController::class => Controller\Factory\PersonalControllerFactory::class,            
+            Controller\WorkPermitController::class => Controller\Factory\WorkPermitControllerFactory::class,            
         ],
     ],
     // The 'access_filter' key is used by the User module to restrict or permit
@@ -44,7 +44,7 @@ return [
     // ],
     'service_manager' => [
         'factories' => [
-            Service\PersonalManager::class => Service\Factory\PersonalManagerFactory::class,
+            Service\WorkPermitManager::class => Service\Factory\WorkPermitManagerFactory::class,
         ],
     ],
     'view_manager' => [
