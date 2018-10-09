@@ -5,6 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use WorkPermit\Form\WorkPermitForm;
 use Zend\Mvc\MvcEvent;
+use DBAL\Entity\WorkPermit\Permit;
 
 
 /**
@@ -35,7 +36,7 @@ class WorkPermitController extends AbstractActionController
         $this->entityManager = $entityManager;
         $this->workPermitManager = $workPermitManager;
     }
-     
+        
     /**
      * This is the default "index" action of the controller. It displays the 
      * list of users.
@@ -46,8 +47,11 @@ class WorkPermitController extends AbstractActionController
           //obtiene el contratista que esta registrado
         
         
+        $permits = $this->entityManager->getRepository(Permit::class)
+                ->findBy([], ['id'=>'ASC']);
+        
         return new ViewModel([
-            'personal' => "index de Permisos"
+            'workPermit' => $permits
         ]);
     } 
     
@@ -130,7 +134,7 @@ class WorkPermitController extends AbstractActionController
             return;
         }
         
-        $workPermit = $this->entityManager->getRepository(WorkPermit::class)
+        $workPermit = $this->entityManager->getRepository(Permit::class)
                 ->find($id);
         
         if ($workPermit == null) {
@@ -163,14 +167,14 @@ class WorkPermitController extends AbstractActionController
             }               
         } else {
             $form->setData(array(
-                    'data'=>$workPermit->getDataCreated(),
-                    'email'=>$workPermit->getEmail(),                    
-                    'seniority'=>$workPermit->getSeniority(),                    
+                    'start-time'=>$workPermit->getStartTime(),
+                    'end-time'=>$workPermit->getEndtime(),                    
+                    'work-reason'=>$workPermit->getWorkReason(),                    
                 ));
         }
         
         return new ViewModel(array(
-            'personal' => $personal,
+            'workPermit' => $workPermit,
             'form' => $form
         ));
     }

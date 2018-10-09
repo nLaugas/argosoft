@@ -1,10 +1,10 @@
 <?php
-$this->headTitle('Personal');
+$this->headTitle('Permiso');
 
 
 ?>
 
-<h1 align="center">Personal</h1>
+<h1 align="center">Permisos</h1>
 <br>
 
 
@@ -12,30 +12,29 @@ $this->headTitle('Personal');
 
    <tr>
         <th>ID</th>
-        <th>E-mail</th>
-        <th>Nombre</th>
-        <th>Antigüedad</th>
-        <th>Fecha de Creación</th>     
-        <th>Actions</th>        
+        <th>Fecha de Creación</th>
+        <th>Hora de Inicio</th>
+        <th>Hora de Finalizacion</th>
+        <th>Motivo de trabajo</th>
     </tr>
     
-    <?php foreach ($personal as $pers): ?>
+    <?php foreach ($workPermit as $permit): ?>
     
     <tr>
-        <td><?= $this->escapeHtml($pers->getId()); ?></td>
+        <td><?= $this->escapeHtml($permit->getId()); ?></td>
         <td>
-            <a href="<?= $this->url('personal', ['action'=>'view', 'id'=>$pers->getId()]); ?>">
-                <?= $this->escapeHtml($pers->getEmail()); ?>
+            <a href="<?= $this->url('workPermit', ['action'=>'view', 'id'=>$permit->getId()]); ?>">
+                <?= $this->escapeHtml($permit->getDateCreated()); ?>
             </a> 
         </td>
-        <td><?= $this->escapeHtml($pers->getFullName()); ?></a> 
+        <td><?= $this->escapeHtml($permit->getStartTime()); ?></a> 
         </td>
-        <td><?= $this->escapeHtml($pers->getSeniority()); ?></a> 
+        <td><?= $this->escapeHtml($permit->getEndTime()); ?></a> 
         </td>
-        <td><?= $this->escapeHtml($pers->getDateCreated()); ?></td>        
+        <td><?= $this->escapeHtml($permit->getWorkReason()); ?></td>        
         <td>
-            <a class="btn btn-info" href="<?= $this->url('personal', 
-                    ['action'=>'edit', 'id'=>$pers->getId()]); ?>">
+            <a class="btn btn-info" href="<?= $this->url('workPermit', 
+                    ['action'=>'edit', 'id'=>$permit->getId()]); ?>">
                 <span class="glyphicon glyphicon-pencil" ></span> Edit
             </a>
         </td>    
@@ -55,7 +54,7 @@ $this->headTitle('Personal');
         document.getElementById("btn-submit").classList.add('glyphicon-plus');
         
         var att = document.createAttribute("onClick");        
-        att.value = 'location.href= "personal/add"';
+        att.value = 'location.href= "workPermit/add"';
         
         document.getElementById("btn-submit").setAttributeNode(att);
 

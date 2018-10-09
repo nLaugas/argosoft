@@ -57,14 +57,14 @@ class Permit
         
     }
 
-    public function getDataCreated()
+    public function getDateCreated()
     {
-        return $this->dataCreated;
+        return $this->dateCreated;
     }
     
-    public function setDataCreated($dataCreated)
+    public function setDateCreated($dataCreated)
     {
-        $this->dataCreated = $dataCreated;
+        $this->dateCreated = $dataCreated;
         
     }
 

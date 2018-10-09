@@ -1,0 +1,58 @@
+<?php
+$this->headTitle('Editar Permiso');
+
+
+
+$form->get('start-time')->setAttributes([
+    'class'=>'form-control', 
+    'placeholder'=>'name@example.com'
+    ]);
+
+$form->get('end-time')->setAttributes([
+    'class'=>'form-control', 
+    'placeholder'=>'John Doe'
+    ]);
+
+$form->get('work-reason')->setAttributes([
+    'class'=>'form-control', 
+    'placeholder'=>'En años'
+    ]);
+
+
+$form->prepare();
+?>
+
+<h1 align="center">Editar Permiso </h1>
+<br>
+<div class="row">
+    <div class="col-xs-12">
+        <?= $this->form()->openTag($form); ?>
+        
+         <div class="form-group">
+            <?= $this->formLabel($form->get('start-time')); ?>
+            <?= $this->formElement($form->get('start-time')); ?>
+            <?= $this->formElementErrors($form->get('start-time')); ?>                  
+        </div>
+        
+        <div class="form-group">
+            <?= $this->formLabel($form->get('end-time')); ?>
+            <?= $this->formElement($form->get('end-time')); ?>
+            <?= $this->formElementErrors($form->get('end-time')); ?>                  
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('work-reason')); ?>
+            <?= $this->formElement($form->get('work-reason')); ?>
+            <?= $this->formElementErrors($form->get('work-reason')); ?>                  
+        </div>
+       
+    </div>    
+</div>   
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        document.getElementById("btn-left").style.display = "none";
+        document.getElementById("btn-right").style.display = "none";
+
+ });
+</script>

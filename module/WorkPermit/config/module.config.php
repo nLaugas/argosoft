@@ -17,7 +17,7 @@ return [
                         'id' => '[a-zA-Z0-9_-]*',
                     ],
                     'defaults' => [
-                        'controller'    => Controller\PersonalController::class,
+                        'controller'    => Controller\WorkPermitController::class,
                         'action'        => 'index',
                     ],
                 ],

@@ -1,5 +1,5 @@
 <?php
-namespace Personal\Form;
+namespace WorkPermit\Form;
 
 use Zend\Form\Form;
 use Zend\Form\Fieldset;
@@ -10,7 +10,7 @@ use Zend\InputFilter\InputFilter;
  * can work in two scenarios - 'create' and 'update'. In 'create' scenario, user
  * enters password, in 'update' scenario he/she doesn't enter password.
  */
-class PersonalForm extends Form
+class WorkPermitForm extends Form
 {
     /**
      * Scenario ('create' or 'update').
@@ -28,15 +28,15 @@ class PersonalForm extends Form
      * Current user.
      * @var User\Entity\User 
      */
-    private $personal = null;
+    private $workPermit = null;
     
     /**
      * Constructor.     
      */
-    public function __construct($scenario = 'create', $entityManager = null, $personal = null)
+    public function __construct($scenario = 'create', $entityManager = null, $workPermit = null)
     {
         // Define form name
-        parent::__construct('personal-form');
+        parent::__construct('work-permit-form');
      
         // Set POST method for this form
         $this->setAttribute('method', 'post');
@@ -44,7 +44,7 @@ class PersonalForm extends Form
         // Save parameters for internal use.
         $this->scenario = $scenario;
         $this->entityManager = $entityManager;
-        $this->personal = $personal;
+        $this->workPermit = $workPermit;
         
         $this->addElements();
         $this->addInputFilter();          
@@ -59,26 +59,27 @@ class PersonalForm extends Form
 
         $this->add([            
             'type'  => 'text',
-            'name' => 'email',
+            'name' => 'work-reason',
             'options' => [
-                'label' => 'E-mail',
+                'label' => 'Motivo de Trabajo',
             ],
         ]);
         
         // Add "full_name" field
         $this->add([            
-            'type'  => 'text',
-            'name' => 'full_name',            
+            'type'  => 'time',
+            'name' => 'start-time',       
             'options' => [
-                'label' => 'Full Name',
+                'label' => 'Hora de Inicio',
             ],
+            
         ]);
         
          $this->add([            
-            'type'  => 'text',
-            'name' => 'seniority',            
+            'type'  => 'time',
+            'name' => 'end-time',            
             'options' => [
-                'label' => 'Antigüedad',
+                'label' => 'Hora de Finalizacion',
             ],
         ]);
         
@@ -105,7 +106,7 @@ class PersonalForm extends Form
                 
         // Add input for "email" field
         $inputFilter->add([
-                'name'     => 'email',
+                'name'     => 'end-time',
                 'required' => true,
                 'filters'  => [
                     ['name' => 'StringTrim'],                    

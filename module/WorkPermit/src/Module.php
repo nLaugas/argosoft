@@ -5,7 +5,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Personal;
+namespace WorkPermit;
 
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Controller\AbstractActionController;
