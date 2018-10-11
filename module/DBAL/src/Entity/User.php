@@ -294,6 +294,11 @@ class User
         return $this->profiles;
     }
 
+    public function getProfile($index) 
+    {
+        return $this->profiles[$index];
+    }    
+
 }
 
 
