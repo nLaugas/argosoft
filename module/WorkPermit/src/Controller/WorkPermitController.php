@@ -6,6 +6,7 @@ use Zend\View\Model\ViewModel;
 use WorkPermit\Form\WorkPermitForm;
 use Zend\Mvc\MvcEvent;
 use DBAL\Entity\WorkPermit\Permit;
+use DBAL\Entity\User;
 
 
 /**
@@ -44,11 +45,14 @@ class WorkPermitController extends AbstractActionController
     public function indexAction() 
     {
         
-          //obtiene el contratista que esta registrado
         
         
+        //obtiene el personal interno que esta registrado
+        $performer = $this->entityManager->getRepository(User::class)
+                    ->findOneByEmail($this->identity());
+
         $permits = $this->entityManager->getRepository(Permit::class)
-                ->findBy([], ['id'=>'ASC']);
+                ->findBy(['performer'=>$performer]);
         
         return new ViewModel([
             'workPermit' => $permits
@@ -69,7 +73,9 @@ class WorkPermitController extends AbstractActionController
         $form = new WorkPermitForm('create', $this->entityManager);
         // Check if user has submitted the form
 
-        
+        //usuario que crea el permiso 
+         $performer = $this->entityManager->getRepository(User::class)
+                    ->findOneByEmail($this->identity());
         
 
         if ($this->getRequest()->isPost()) {
@@ -78,12 +84,13 @@ class WorkPermitController extends AbstractActionController
             $data = $this->params()->fromPost();            
 
             $form->setData($data);
-            
             // Validate form
+
             if($form->isValid()) {
                 // Get filtered and validated data
                 $data = $form->getData();
                 // Add user.
+                $data['performer'] = $performer;
                 $workPermit = $this->workPermitManager->addWorkPermit($data);
                 
                 // Redirect to "view" page

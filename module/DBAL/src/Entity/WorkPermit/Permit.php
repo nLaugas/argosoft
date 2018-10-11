@@ -38,7 +38,11 @@ class Permit
     
     protected $workReason;
     
-    
+      /**
+   * @ORM\ManyToOne(targetEntity="DBAL\Entity\User")
+   * @ORM\JoinColumn(name="performer_id", referencedColumnName="id")
+   */
+    protected $performer;
 
     public function __construct() 
     {
@@ -46,6 +50,16 @@ class Permit
         
     }
 
+    public function getPerformer()
+    {
+        return $this->performer;
+    }
+    
+    public function setPerformer($performer)
+    {
+        $this->performer = $performer;
+        
+    }
     public function getId()
     {
         return $this->id;

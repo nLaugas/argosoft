@@ -67,7 +67,7 @@ class WorkPermitForm extends Form
         
         // Add "full_name" field
         $this->add([            
-            'type'  => 'time',
+            'type'  => 'text',
             'name' => 'start-time',       
             'options' => [
                 'label' => 'Hora de Inicio',
@@ -76,7 +76,7 @@ class WorkPermitForm extends Form
         ]);
         
          $this->add([            
-            'type'  => 'time',
+            'type'  => 'text',
             'name' => 'end-time',            
             'options' => [
                 'label' => 'Hora de Finalizacion',
@@ -106,10 +106,10 @@ class WorkPermitForm extends Form
                 
         // Add input for "email" field
         $inputFilter->add([
-                'name'     => 'end-time',
+                'name'     => 'work-reason',
                 'required' => true,
                 'filters'  => [
-                    ['name' => 'StringTrim'],                    
+                    ['name' => 'StringTrim'],  //este filtro saca espacio                   
                 ],                
                 'validators' => [
                     [
@@ -126,7 +126,7 @@ class WorkPermitForm extends Form
         
         // Add input for "full_name" field
         $inputFilter->add([
-                'name'     => 'full_name',
+                'name'     => 'end-time',
                 'required' => true,
                 'filters'  => [                    
                     ['name' => 'StringTrim'],
@@ -144,7 +144,7 @@ class WorkPermitForm extends Form
         
        // Add input for "full_name" field
         $inputFilter->add([
-                'name'     => 'seniority',
+                'name'     => 'start-time',
                 'required' => true,
                 'filters'  => [                    
                     ['name' => 'StringTrim'],

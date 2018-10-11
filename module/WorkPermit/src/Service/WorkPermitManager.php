@@ -34,12 +34,16 @@ class WorkPermitManager
     public function addWorkPermit($data) 
     {
         
-        // Create new User entity.
-        $workPermit = new WorkPermit();
-        $workPermit->setStartTime($data['start-time']);
-        $workPermit->setEndTime($data['end-time']);        
-        $workPermit->setWorkReason($data['work-reason']);        
         
+        
+
+        $workPermit = new Permit();
+        // $workPermit->setStartTime($data['start-time']);
+        // $workPermit->setEndTime($data['end-time']);        
+         $workPermit->setStartTime(date('H:i:s'));
+         $workPermit->setEndTime(date('H:i:s'));        
+         $workPermit->setWorkReason($data['work-reason']);        
+         $workPermit->setPerformer($data['performer']);
     
         $currentDate = date('Y-m-d H:i:s');
         $workPermit->setDateCreated($currentDate);        
