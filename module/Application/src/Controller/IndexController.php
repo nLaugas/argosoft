@@ -62,8 +62,11 @@ class IndexController extends AbstractActionController
             $operations = $module->getOperations();
             
             if ($operations[0] != NULL){
-                //si el modulo tiene otros modulos 
-                $this->redirect()->toRoute($operations[0]->getRoute());
+                //si el modulo tiene otros modulos
+                if ($idModuleClick == 3) 
+                    $this->redirect()->toRoute('workPermit');
+                else
+                    $this->redirect()->toRoute($operations[0]->getRoute());
             }
             else{                
                 //si el modulo tiene operaciones 
