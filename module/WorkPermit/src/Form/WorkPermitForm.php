@@ -83,7 +83,14 @@ class WorkPermitForm extends Form
             ],
         ]);
         
-        
+          // Add "contractor" field
+        $this->add([            
+            'type'  => 'select',
+            'name' => 'contractor',
+            'options' => [
+                'label' => 'Contratista',
+            ],
+        ]);
         
         // Add the Submit button
         $this->add([
@@ -159,6 +166,18 @@ class WorkPermitForm extends Form
                     ],
                 ],
             ]);
+
+        $inputFilter->add([
+                'class'    => ArrayInput::class,
+                'name'     => 'contractor',
+                'required' => true,
+                'filters'  => [                    
+                    ['name' => 'ToInt'],
+                ],                
+                'validators' => [
+                    ['name'=>'GreaterThan', 'options'=>['min'=>0]]
+                ],
+            ]); 
         
             
     }           

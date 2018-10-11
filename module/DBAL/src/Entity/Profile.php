@@ -15,7 +15,8 @@ use DBAL\Entity\Module;
 class Profile
 {
     const PROFILE_ADMIN = 'Admin';
-    const PROFILE_CLIENT = 'Client';
+    const PROFILE_CONTRACTOR = "Contratista";
+
     /**
      * @ORM\Id
      * @ORM\Column(name="id")
@@ -144,6 +145,7 @@ class Profile
         
     }
  
+
 
 
    

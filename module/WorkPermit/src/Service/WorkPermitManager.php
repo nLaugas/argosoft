@@ -2,6 +2,7 @@
 namespace WorkPermit\Service;
 
 use DBAL\Entity\WorkPermit\Permit;
+use DBAL\Entity\User;
 use Zend\Crypt\Password\Bcrypt;
 use Zend\Math\Rand;
 
@@ -44,7 +45,11 @@ class WorkPermitManager
          $workPermit->setEndTime(date('H:i:s'));        
          $workPermit->setWorkReason($data['work-reason']);        
          $workPermit->setPerformer($data['performer']);
-    
+        
+        $contractorId = $data['contractor']; 
+        $contractor = $this->entityManager->getRepository(User::class)
+                    ->findOneById($contractorId);
+        $workPermit->setContractor($contractor);
         $currentDate = date('Y-m-d H:i:s');
         $workPermit->setDateCreated($currentDate);        
                 

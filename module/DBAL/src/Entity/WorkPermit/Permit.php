@@ -44,12 +44,29 @@ class Permit
    */
     protected $performer;
 
+
+    /**
+   * @ORM\ManyToOne(targetEntity="DBAL\Entity\User")
+   * @ORM\JoinColumn(name="contractor_id", referencedColumnName="id")
+   */
+    protected $contractor;
+
+
     public function __construct() 
     {
         
         
     }
-
+    public function getContractor()
+    {
+        return $this->contractor;
+    }
+    
+    public function setContractor($contractor)
+    {
+        $this->contractor = $contractor;
+        
+    }
     public function getPerformer()
     {
         return $this->performer;

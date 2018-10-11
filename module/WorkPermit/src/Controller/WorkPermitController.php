@@ -7,6 +7,7 @@ use WorkPermit\Form\WorkPermitForm;
 use Zend\Mvc\MvcEvent;
 use DBAL\Entity\WorkPermit\Permit;
 use DBAL\Entity\User;
+use DBAL\Entity\Profile;
 
 
 /**
@@ -46,16 +47,29 @@ class WorkPermitController extends AbstractActionController
     {
         
         
-        
-        //obtiene el personal interno que esta registrado
-        $performer = $this->entityManager->getRepository(User::class)
+            
+        //obtiene el usuario que puede ser contratista o interno responsable
+        $user = $this->entityManager->getRepository(User::class)
                     ->findOneByEmail($this->identity());
-
-        $permits = $this->entityManager->getRepository(Permit::class)
-                ->findBy(['performer'=>$performer]);
         
+        $profile = $user->getProfiles();             
+        $isContractor = false;
+        if ($profile[0]->getName() == Profile::PROFILE_CONTRACTOR){
+            $permits = $this->entityManager->getRepository(Permit::class)
+                ->findBy(['contractor'=>$user]);
+                $isContractor = true;
+        }
+        else
+        {
+            $permits = $this->entityManager->getRepository(Permit::class)
+                ->findBy(['performer'=>$user]);       
+        }
+    
+    
+
         return new ViewModel([
-            'workPermit' => $permits
+            'workPermit' => $permits,
+            'isContractor'=>$isContractor,
         ]);
     } 
     
@@ -73,6 +87,14 @@ class WorkPermitController extends AbstractActionController
         $form = new WorkPermitForm('create', $this->entityManager);
         // Check if user has submitted the form
 
+        $allContractors  = $this->entityManager->getRepository(User::class)
+                ->findBy([], ['fullName'=>'ASC']);
+        $contractorList = [];
+        foreach ($allContractors as $contractor) {
+            $contractorList[$contractor->getId()] = $contractor->getFullName();
+        }
+        
+        $form->get('contractor')->setValueOptions($contractorList);
         //usuario que crea el permiso 
          $performer = $this->entityManager->getRepository(User::class)
                     ->findOneByEmail($this->identity());

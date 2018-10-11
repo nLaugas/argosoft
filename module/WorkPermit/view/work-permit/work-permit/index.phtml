@@ -16,6 +16,11 @@ $this->headTitle('Permiso');
         <th>Hora de Inicio</th>
         <th>Hora de Finalizacion</th>
         <th>Motivo de trabajo</th>
+        <?php if ($isContractor): ?>
+            <th>Responsable</th>
+        <?php else: ?>
+            <th>Contratista</th>
+        <?php endif ?>
     </tr>
     
     <?php foreach ($workPermit as $permit): ?>
@@ -31,7 +36,14 @@ $this->headTitle('Permiso');
         </td>
         <td><?= $this->escapeHtml($permit->getEndTime()); ?></a> 
         </td>
-        <td><?= $this->escapeHtml($permit->getWorkReason()); ?></td>        
+        <td><?= $this->escapeHtml($permit->getEndTime()); ?></a> 
+        </td>
+        <?php if ($isContractor): ?>
+            <td><?= $this->escapeHtml($permit->getPerformer()->getFullName()); ?></td>    
+        <?php else: ?>
+            <td><?= $this->escapeHtml($permit->getContractor()->getFullName()); ?></td>        
+        <?php endif ?>
+        
         <td>
             <a class="btn btn-info" href="<?= $this->url('workPermit', 
                     ['action'=>'edit', 'id'=>$permit->getId()]); ?>">
