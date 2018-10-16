@@ -36,7 +36,7 @@ $this->headTitle('Permiso');
         </td>
         <td><?= $this->escapeHtml($permit->getEndTime()); ?></a> 
         </td>
-        <td><?= $this->escapeHtml($permit->getEndTime()); ?></a> 
+        <td><?= $this->escapeHtml($permit->getWorkReason()); ?></a> 
         </td>
         <?php if ($isContractor): ?>
             <td><?= $this->escapeHtml($permit->getPerformer()->getFullName()); ?></td>    
