@@ -72,6 +72,7 @@ class IndexController extends AbstractActionController
                 //si el modulo tiene operaciones 
                 $this->redirect()->toRoute($module->getTemplate());
             }
+
         }
 
         
@@ -83,6 +84,11 @@ class IndexController extends AbstractActionController
         //obtiene los perfiles del usuario
         $profiles = $userLog->getProfiles();
         
+        //agrega el perfil y usuario en la variable global
+        session_start();
+        $_SESSION['profile'] = $profiles[0];
+        $_SESSION['user'] = $userLog; 
+
         //obtiene los modulos del primer perfil 
         $modules = $profiles[0]->getModules();   
                     /*
