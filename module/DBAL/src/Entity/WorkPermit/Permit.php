@@ -3,6 +3,7 @@ namespace DBAL\Entity\WorkPermit;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use DBAL\Entity\WorkPermit\SectionItem;
 /**
  * This class represents a registered user.
  * @ORM\Entity()
@@ -10,6 +11,9 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Permit 
 {
+    // Permit status constants.
+    const STATUS_ACTIVE       = 'a'; // Active user.
+    const STATUS_FINALIZED      = 'f'; // Retired user.
     
     /**
      * @ORM\Id
@@ -51,11 +55,17 @@ class Permit
    */
     protected $contractor;
 
+    /**
+     *
+     * @ORM\ManyToMany(targetEntity="SectionItem", mappedBy="permits")
+     */
+  
+    protected $sectionItems;
 
     public function __construct() 
     {
         
-        
+        $this->sectionItems = new ArrayCollection();
     }
     public function getContractor()
     {
@@ -129,6 +139,16 @@ class Permit
     public function setWorkReason($workReason)
     {
         $this->workReason = $workReason;
+        
+    }
+    public function getSectionItems()
+    {
+        return $this->sectionItems;
+    }
+    
+    public function setSectionItems($sectionItems)
+    {
+        $this->sectionItems = $sectionItems;
         
     }
 }

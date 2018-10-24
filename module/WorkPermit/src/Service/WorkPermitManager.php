@@ -5,7 +5,9 @@ use DBAL\Entity\WorkPermit\Permit;
 use DBAL\Entity\User;
 use Zend\Crypt\Password\Bcrypt;
 use Zend\Math\Rand;
-
+use DBAL\Entity\WorkPermit\SectionItem;
+use DBAL\Entity\WorkPermit\PermitSectionItem;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
@@ -63,9 +65,34 @@ class WorkPermitManager
     }
     
     /**
-     * This method updates data of an existing user.
+     * este metodo retorna todas las secciones con sus items. Y en que estado esta cada items (seleccionado o no seleccionado)
      */
-    public function updatePersonal($workPermit, $data) 
+    public function getSections($workPermit)
+    {   
+        $sections=[];
+            
+        $permitSectionItems = $this->entityManager->getRepository(PermitSectionItem::class)
+         ->findBy(['permit'=>$workPermit]);
+         
+         foreach ($permitSectionItems as $permitSectionItem) {
+             $sectionItem = $permitSectionItem->getSectionItem();
+             $section = $sectionItem -> getSection();
+             $item = $sectionItem-> getItem();
+             $item->setSelect($permitSectionItem->getState());
+
+             if (!in_array($section->getName(),$sections)){
+                $sections[$section->getName()] = $section->getItems();
+             }
+
+
+         }
+         
+        return $sections;  
+    }
+
+   
+
+    public function updateWorkPermit($workPermit, $data) 
     {
         
         $workPermit->setStartTime($data['start-time']);

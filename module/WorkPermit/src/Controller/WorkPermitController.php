@@ -8,6 +8,9 @@ use Zend\Mvc\MvcEvent;
 use DBAL\Entity\WorkPermit\Permit;
 use DBAL\Entity\User;
 use DBAL\Entity\Profile;
+use DBAL\Entity\WorkPermit\PermitSectionItem;
+use DBAL\Entity\WorkPermit\SectionItem;
+use DBAL\Entity\WorkPermit\Section;
 
 
 /**
@@ -31,12 +34,13 @@ class WorkPermitController extends AbstractActionController
     /**
      * Constructor. 
      */
-    
+    protected $isContractor;
     
     public function __construct($entityManager, $workPermitManager)
     {
         $this->entityManager = $entityManager;
         $this->workPermitManager = $workPermitManager;
+        $this->isContractor = false;
     }
         
     /**
@@ -49,12 +53,11 @@ class WorkPermitController extends AbstractActionController
         
             
         //obtiene el usuario que puede ser contratista o interno responsable
-        $user = $this->entityManager->getRepository(User::class)
-                    ->findOneByEmail($this->identity());
         
-        $profile = $user->getProfiles();             
-        $isContractor = false;
-        if ($profile[0]->getName() == Profile::PROFILE_CONTRACTOR){
+        $user = $_SESSION['user'];
+        $profile = $user->getProfiles()[0];
+        $isContractor = false;             
+        if ($profile->getName() == Profile::PROFILE_CONTRACTOR){
             $permits = $this->entityManager->getRepository(Permit::class)
                 ->findBy(['contractor'=>$user]);
                 $isContractor = true;
@@ -64,8 +67,7 @@ class WorkPermitController extends AbstractActionController
             $permits = $this->entityManager->getRepository(Permit::class)
                 ->findBy(['performer'=>$user]);       
         }
-    
-    
+        
 
         return new ViewModel([
             'workPermit' => $permits,
@@ -104,7 +106,8 @@ class WorkPermitController extends AbstractActionController
             
             // Fill in the form with POST data
             $data = $this->params()->fromPost();            
-
+            print_r($this->params()->fromFiles());
+            die(__FILE__);
             $form->setData($data);
             // Validate form
 
@@ -145,7 +148,7 @@ class WorkPermitController extends AbstractActionController
             $this->getResponse()->setStatusCode(404);
             return;
         }
-                
+               
         return new ViewModel([
             'workPermit' => $workPermit
         ]);
@@ -195,16 +198,28 @@ class WorkPermitController extends AbstractActionController
                         ['action'=>'view', 'id'=>$workPermit->getId()]);                
             }               
         } else {
+
+            
             $form->setData(array(
                     'start-time'=>$workPermit->getStartTime(),
                     'end-time'=>$workPermit->getEndtime(),                    
                     'work-reason'=>$workPermit->getWorkReason(),                    
                 ));
         }
+        $user = $_SESSION['user'];
+        $profile = $user->getProfiles()[0];
+        $isContractor = false;             
+        if ($profile->getName() == Profile::PROFILE_CONTRACTOR){
+            $sections = $this->workPermitManager->getSections($workPermit);
+                $isContractor = true;
+        }
+        
         
         return new ViewModel(array(
             'workPermit' => $workPermit,
-            'form' => $form
+            'form' => $form,
+            'sections' => $sections,
+            'isContractor' => $isContractor,
         ));
     }
     

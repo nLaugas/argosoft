@@ -47,7 +47,12 @@ $this->headTitle('Permiso');
         <td>
             <a class="btn btn-info" href="<?= $this->url('workPermit', 
                     ['action'=>'edit', 'id'=>$permit->getId()]); ?>">
-                <span class="glyphicon glyphicon-pencil" ></span> Edit
+                <span class="glyphicon glyphicon-pencil" ></span>     
+                    <?php if ($isContractor): ?>
+                        Completar    
+                    <?php else: ?>
+                        Editar
+                    <?php endif ?>
             </a>
         </td>    
     </tr>
