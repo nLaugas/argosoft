@@ -22,11 +22,26 @@ return [
                     ],
                 ],
             ],
+            'workPermitContractor' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/workPermitContractor[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[a-zA-Z0-9_-]*',
+                    ],
+                    'defaults' => [
+                        'controller'    => Controller\WorkPermitContractorController::class,
+                        'action'        => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
         'factories' => [
-            Controller\WorkPermitController::class => Controller\Factory\WorkPermitControllerFactory::class,            
+            Controller\WorkPermitController::class => Controller\Factory\WorkPermitControllerFactory::class,
+            Controller\WorkPermitContractorController::class => Controller\Factory\WorkPermitContractorControllerFactory::class,            
         ],
     ],
     // The 'access_filter' key is used by the User module to restrict or permit

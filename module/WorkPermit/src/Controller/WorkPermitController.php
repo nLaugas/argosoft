@@ -17,75 +17,19 @@ use DBAL\Entity\WorkPermit\Section;
  * El UserController contendrá la funcionalidad para el manejo de usuario (añadir, editar, cambio de 
  * contraseña, etc).
  */
-class WorkPermitController extends AbstractActionController 
+class WorkPermitController extends WorkPermitContractorController 
 {
-    /**
-     * Entity manager.
-     * @var Doctrine\ORM\EntityManager
-     */
-    private $entityManager;
     
-    /**
-     * User manager.
-     * @var User\Service\UserManager 
-     */
-    private $workPermitManager;
-    
-    /**
-     * Constructor. 
-     */
-    protected $isContractor;
     
     public function __construct($entityManager, $workPermitManager)
     {
-        $this->entityManager = $entityManager;
-        $this->workPermitManager = $workPermitManager;
-        $this->isContractor = false;
+       parent::__construct($entityManager, $workPermitManager);
+       $this->profile = "performer";
     }
         
-    /**
-     * This is the default "index" action of the controller. It displays the 
-     * list of users.
-     */
-    public function indexAction() 
-    {
-        
-        
-            
-        //obtiene el usuario que puede ser contratista o interno responsable
-        
-        $user = $_SESSION['user'];
-        $profile = $user->getProfiles()[0];
-        $isContractor = false;             
-        if ($profile->getName() == Profile::PROFILE_CONTRACTOR){
-            $permits = $this->entityManager->getRepository(Permit::class)
-                ->findBy(['contractor'=>$user]);
-                $isContractor = true;
-        }
-        else
-        {
-            $permits = $this->entityManager->getRepository(Permit::class)
-                ->findBy(['performer'=>$user]);       
-        }
-        
-
-        return new ViewModel([
-            'workPermit' => $permits,
-            'isContractor'=>$isContractor,
-        ]);
-    } 
-    
-    /**
-     * This action displays a page allowing to add a new user.
-     */
-
-
 
     public function addAction()
     {
-        
-         
-
         $form = new WorkPermitForm('create', $this->entityManager);
         // Check if user has submitted the form
 
@@ -202,24 +146,15 @@ class WorkPermitController extends AbstractActionController
             
             $form->setData(array(
                     'start-time'=>$workPermit->getStartTime(),
-                    'end-time'=>$workPermit->getEndtime(),                    
-                    'work-reason'=>$workPermit->getWorkReason(),                    
+                    'end-time'=>$workPermit->getEndtime(),
+                    'work-reason'=>$workPermit->getWorkReason(),
                 ));
-        }
-        $user = $_SESSION['user'];
-        $profile = $user->getProfiles()[0];
-        $isContractor = false;             
-        if ($profile->getName() == Profile::PROFILE_CONTRACTOR){
-            $sections = $this->workPermitManager->getSections($workPermit);
-                $isContractor = true;
         }
         
         
         return new ViewModel(array(
             'workPermit' => $workPermit,
             'form' => $form,
-            'sections' => $sections,
-            'isContractor' => $isContractor,
         ));
     }
     

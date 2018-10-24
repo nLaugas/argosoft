@@ -16,7 +16,7 @@ $this->headTitle('Permiso');
         <th>Hora de Inicio</th>
         <th>Hora de Finalizacion</th>
         <th>Motivo de trabajo</th>
-        <th>Contratista</th>
+        <th>Responsable</th>
     </tr>
     
     <?php foreach ($workPermit as $permit): ?>
@@ -24,7 +24,7 @@ $this->headTitle('Permiso');
     <tr>
         <td><?= $this->escapeHtml($permit->getId()); ?></td>
         <td>
-            <a href="<?= $this->url('workPermit', ['action'=>'view', 'id'=>$permit->getId()]); ?>">
+            <a href="<?= $this->url('workPermitContractor', ['action'=>'view', 'id'=>$permit->getId()]); ?>">
                 <?= $this->escapeHtml($permit->getDateCreated()); ?>
             </a> 
         </td>
@@ -34,12 +34,11 @@ $this->headTitle('Permiso');
         </td>
         <td><?= $this->escapeHtml($permit->getWorkReason()); ?></a> 
         </td>
-        <td><?= $this->escapeHtml($permit->getContractor()->getFullName()); ?>
-        </td>
+            <td><?= $this->escapeHtml($permit->getPerformer()->getFullName()); ?></td>
         <td>
-            <a class="btn btn-info" href="<?= $this->url('workPermit', 
+            <a class="btn btn-info" href="<?= $this->url('workPermitContractor', 
                     ['action'=>'edit', 'id'=>$permit->getId()]); ?>">
-                <span class="glyphicon glyphicon-pencil" ></span>Editar</a>
+                <span class="glyphicon glyphicon-pencil" ></span>Completar</a>
         </td>    
     </tr>
         
@@ -51,15 +50,8 @@ $this->headTitle('Permiso');
     $(document).ready(function(){
         document.getElementById("btn-left").style.display = "none";
         document.getElementById("btn-right").style.display = "none";
-        document.getElementById("btn-submit").style.display = "block";
+        document.getElementById("btn-submit").style.display = "none";
 
-        document.getElementById("btn-submit").classList.remove('glyphicon-ok');
-        document.getElementById("btn-submit").classList.add('glyphicon-plus');
-        
-        var att = document.createAttribute("onClick");        
-        att.value = 'location.href= "workPermit/add"';
-        
-        document.getElementById("btn-submit").setAttributeNode(att);
 
 
  });
