@@ -115,7 +115,11 @@ class AuthController extends AbstractActionController
                         return $this->redirect()->toRoute('modules');
                         //return $this->redirect()->toRoute('users',['action'=>'add']);
                     } else {
-                        $this->redirect()->toUrl($redirectUrl); 
+                        $this->redirect()->toRoute('modules');
+                        //$this->redirect()->toUrl($redirectUrl);
+                        //session_start();
+                        //$_SESSION['profile'] = $profiles[0];
+                        //$_SESSION['user'] = $userLog;  
                         
                     }
                 } else {
