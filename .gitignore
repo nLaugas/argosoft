@@ -9,5 +9,6 @@ nbproject
 .settings
 vendor/
 config/development.config.php
+config/autoload/local.php
 phpunit.xml
 public/img/captcha

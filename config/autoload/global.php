@@ -29,22 +29,5 @@ return [
             HttpUserAgent::class,
         ]
     ],
-    // Session storage configuration.
-    'session_storage' => [
-        'type' => SessionArrayStorage::class
-    ],
-        'doctrine' => [
-        'connection' => [
-            'orm_default' => [
-                'driverClass' => PDOPgSqlDriver::class,
-                'params' => [
-                    'host'     => 'postgres',
-                    'port'     => '5432',
-                    'user'     => 'postgres',
-                    'password' => 'motorola',
-                    'dbname'   => 'argosoft',
-                ]
-            ],
-        ],
-    ],
+
 ];
