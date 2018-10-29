@@ -11,6 +11,7 @@ use DBAL\Entity\Profile;
 use DBAL\Entity\WorkPermit\PermitSectionItem;
 use DBAL\Entity\WorkPermit\SectionItem;
 use DBAL\Entity\WorkPermit\Section;
+use DBAL\Entity\Personal\Personal;
 
 
 /**
@@ -55,6 +56,8 @@ class WorkPermitContractorController extends AbstractActionController
         
         return new ViewModel([
             'workPermit' => $permits,
+            'statusActived' => Permit::STATUS_ACTIVE,
+            'statusWaiting' => Permit::STATUS_WAITING,
         ]);
     } 
     
@@ -81,15 +84,20 @@ class WorkPermitContractorController extends AbstractActionController
             return;
         }
                
+        $sections = $this->workPermitManager->getSections($workPermit);
+        $personals = $this->workPermitManager->getPersonals($workPermit);
+       
         return new ViewModel([
-            'workPermit' => $workPermit
+            'workPermit' => $workPermit,
+            'sections' => $sections,
+            'personals'=> $personals,
         ]);
     }
     
     /**
      * The "edit" action displays a page allowing to edit user.
      */
-    public function editAction() 
+    public function completeAction() 
     {
        
         $id = (int)$this->params()->fromRoute('id', -1);
@@ -105,24 +113,33 @@ class WorkPermitContractorController extends AbstractActionController
             $this->getResponse()->setStatusCode(404);
             return;
         }
-        
+
         // Check if user has submitted the form
         if ($this->getRequest()->isPost()) {
             
             // Fill in the form with POST data
             $data = $this->params()->fromPost();            
-                
-                $this->workPermitManager->updateWorkPermit($workPermit, $data);
+            $this->workPermitManager->completeWorkPermit($workPermit, $data);
                 
                 // Redirect to "view" page
                 return $this->redirect()->toRoute('workPermitContractor', 
-                        ['action'=>'view', 'id'=>$workPermit->getId()]);                               
+                        ['action'=>'index', 'id'=>$workPermit->getId()]);                               
         }
         
+          //obtiene el contratista que esta registrado
+        $contractor = $this->entityManager->getRepository(User::class)
+                    ->findOneByEmail($this->identity());
+        //la empresa del contratista
+        $company = $contractor->getCompany();
+        $personal = $this->entityManager->getRepository(Personal::class)
+                ->findBy(['company'=>$company[0]]);
+
         $sections = $this->workPermitManager->getSections($workPermit);
         return new ViewModel(array(
             'workPermit' => $workPermit,
             'sections' => $sections,
+            'personal' =>$personal,
+
 
         ));
     }

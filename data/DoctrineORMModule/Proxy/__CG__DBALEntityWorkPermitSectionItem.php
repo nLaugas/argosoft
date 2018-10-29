@@ -265,4 +265,15 @@ class SectionItem extends \DBAL\Entity\WorkPermit\SectionItem implements \Doctri
         return parent::setPermits($permits);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function setPermit($permit)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPermit', [$permit]);
+
+        return parent::setPermit($permit);
+    }
+
 }

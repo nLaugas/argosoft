@@ -31,40 +31,26 @@ class WorkPermitController extends WorkPermitContractorController
     public function addAction()
     {
         $form = new WorkPermitForm('create', $this->entityManager);
-        // Check if user has submitted the form
-
-        $allContractors  = $this->entityManager->getRepository(User::class)
-                ->findBy([], ['fullName'=>'ASC']);
-        $contractorList = [];
-        foreach ($allContractors as $contractor) {
-            $contractorList[$contractor->getId()] = $contractor->getFullName();
-        }
-        
-        $form->get('contractor')->setValueOptions($contractorList);
-        //usuario que crea el permiso 
-         $performer = $this->entityManager->getRepository(User::class)
-                    ->findOneByEmail($this->identity());
-        
+        $allContractors = $this->workPermitManager->getAllContractors();
+        $form->get('contractor')->setValueOptions($allContractors);
 
         if ($this->getRequest()->isPost()) {
             
             // Fill in the form with POST data
             $data = $this->params()->fromPost();            
-            print_r($this->params()->fromFiles());
-            die(__FILE__);
             $form->setData($data);
             // Validate form
-
             if($form->isValid()) {
                 // Get filtered and validated data
                 $data = $form->getData();
-                // Add user.
-                $data['performer'] = $performer;
+                // usuario que crea el permiso.
+                $data['performer'] = $this->entityManager->getRepository(User::class)
+                    ->findOneByEmail($this->identity());
                 $workPermit = $this->workPermitManager->addWorkPermit($data);
                 
                 // Redirect to "view" page
                 return $this->redirect()->toRoute('workPermit', 
-                        ['action'=>'view', 'id'=>$workPermit->getId()]);                
+                        ['action'=>'index', 'id'=>$workPermit->getId()]);                
             }               
         } 
         
@@ -73,30 +59,7 @@ class WorkPermitController extends WorkPermitContractorController
             ]);
     }
     
-    /**
-     * The "view" action displays a page allowing to view user's details.
-     */
-    public function viewAction() 
-    {
-        $id = (int)$this->params()->fromRoute('id', -1);
-        if ($id<1) {
-            $this->getResponse()->setStatusCode(404);
-            return;
-        }
-        
-        // Find a user with such ID.
-        $workPermit = $this->entityManager->getRepository(Permit::class)
-                ->find($id);
-        
-        if ($workPermit == null) {
-            $this->getResponse()->setStatusCode(404);
-            return;
-        }
-               
-        return new ViewModel([
-            'workPermit' => $workPermit
-        ]);
-    }
+  
     
     /**
      * The "edit" action displays a page allowing to edit user.
@@ -125,10 +88,9 @@ class WorkPermitController extends WorkPermitContractorController
             
             // Fill in the form with POST data
             $data = $this->params()->fromPost();            
-            
+             
             $form->setData($data);
-            
-            // Validate form
+
             if($form->isValid()) {
                 
                 // Get filtered and validated data
@@ -136,10 +98,10 @@ class WorkPermitController extends WorkPermitContractorController
                 
                 // Update the user.
                 $this->workPermitManager->updateWorkPermit($workPermit, $data);
-                
+
                 // Redirect to "view" page
                 return $this->redirect()->toRoute('workPermit', 
-                        ['action'=>'view', 'id'=>$workPermit->getId()]);                
+                        ['action'=>'index', 'id'=>$workPermit->getId()]);                
             }               
         } else {
 
@@ -158,6 +120,54 @@ class WorkPermitController extends WorkPermitContractorController
         ));
     }
     
+
+    public function completeAction() 
+    {   
+       
+        $id = (int)$this->params()->fromRoute('id', -1);
+        if ($id<1) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+        
+        $workPermit = $this->entityManager->getRepository(Permit::class)
+                ->find($id);
+        
+        if ($workPermit == null) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+        
+        $sections = $this->workPermitManager->getSections($workPermit);
+        // Check if user has submitted the form
+        if ($this->getRequest()->isPost()) {
+            
+            // Fill in the form with POST data
+
+            $data = $this->params()->fromPost();     
+            if ($data['validar'] == "acepted"){
+                $workPermit->setStatus(Permit::STATUS_FINALIZED);
+                 $this->entityManager->persist($workPermit);    
+            }       
+            else
+            {
+                $workPermit->setStatus(Permit::STATUS_ACTIVE);
+                 $this->entityManager->persist($workPermit);    
+            }
+            // Apply changes to database.
+            $this->entityManager->flush();
+            return $this->redirect()->toRoute('workPermit');
+
+
+            
+        }
+        
+        
+        return new ViewModel(array(
+            'workPermit' => $workPermit,
+            'sections' => $sections,
+        ));
+    }
     /**
      * This action displays a page allowing to change user's password.
      */

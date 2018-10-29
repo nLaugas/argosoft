@@ -3,18 +3,14 @@ namespace DBAL\Entity\WorkPermit;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use DBAL\Entity\WorkPermit\SectionItem;
-use DBAL\Entity\WorkPermit\Item;
+use DBAL\Entity\WorkPermit\PermitPersonal;
 /**
  * This class represents a registered user.
  * @ORM\Entity()
- * @ORM\Table(name="permit_section_item")
+ * @ORM\Table(name="permit_personal")
  */
-class PermitSectionItem
-{   
-
-    const SELECTED = 'A';
-    const UNSELECTED = 'D';
+class PermitPersonal 
+{
     /**
      * @ORM\Id
      * @ORM\Column(name="id")
@@ -22,25 +18,19 @@ class PermitSectionItem
      */
     protected $id;
 
-     /**
-     * @ORM\Column(name="state")  
-     */
-    protected $state;
-
-    /**
-   * @ORM\ManyToOne(targetEntity="DBAL\Entity\WorkPermit\SectionItem")
-   * @ORM\JoinColumn(name="section_item_id", referencedColumnName="id")
-   */
-    protected $sectionItem;
-
-    /**
+          /**
    * @ORM\ManyToOne(targetEntity="DBAL\Entity\WorkPermit\Permit")
    * @ORM\JoinColumn(name="permit_id", referencedColumnName="id")
    */
     protected $permit;
 
+          /**
+   * @ORM\ManyToOne(targetEntity="DBAL\Entity\Personal\Personal")
+   * @ORM\JoinColumn(name="personal_id", referencedColumnName="id")
+   */
+    protected $personal;
      
-
+    
     public function __construct() 
     {
         
@@ -58,17 +48,6 @@ class PermitSectionItem
         
     }
 
-    public function getState()
-    {
-       return $this->state;
-    }
-
-    public function setState($state)
-    {
-       $this->state = $state;
-       
-    }
-
     public function getPermit()
     {
         return $this->permit;
@@ -80,14 +59,15 @@ class PermitSectionItem
         
     }
 
-    public function getSectionItem()
+    public function getPersonal()
     {
-        return $this->sectionItem;
+        return $this->personal;
     }
     
-    public function setSectionItem($sectionItem)
+    public function setPersonal($personal)
     {
-        $this->sectionItem = $sectionItem;
+        $this->personal = $personal;
         
     }
+    
 }

@@ -42,7 +42,7 @@ class Module
 
        /**
      *
-     * @ORM\ManyToMany(targetEntity="Operation", inversedBy="modules")
+     * @ORM\ManyToMany(targetEntity="Operation", inversedBy="modules",cascade={"persist"})
      * @ORM\JoinTable(
      *  name="modulo_operacion",
      *  joinColumns={

@@ -94,4 +94,10 @@ class SectionItem
         $this->permits = $permits;
         
     }
+
+    public function setPermit($permit)
+    {
+        $this->permits->add($permit);
+        
+    }
 }

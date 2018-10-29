@@ -12,8 +12,12 @@ use DBAL\Entity\WorkPermit\SectionItem;
 class Permit 
 {
     // Permit status constants.
-    const STATUS_ACTIVE       = 'a'; // Active user.
-    const STATUS_FINALIZED      = 'f'; // Retired user.
+    const STATUS_ACTIVE       = 'a'; 
+    const STATUS_FINALIZED      = 'f'; 
+    const STATUS_WAITING      = 'w';
+    const SECTION_1 = "Revisión de Equipos y Herramientas";
+    const SECTION_2 = "Peligros y Riesgos Potenciales";
+    const SECTION_3 = "Elementos de Protección";
     
     /**
      * @ORM\Id
@@ -23,7 +27,7 @@ class Permit
     protected $id;
 
      /**
-     * @ORM\Column(name="date_created")  
+     * @ORM\Column(name="date_created",type="date")  
      */
     protected $dateCreated;
 
@@ -41,6 +45,12 @@ class Permit
      */
     
     protected $workReason;
+
+    /** 
+     * @ORM\Column(name="status")  
+     */
+    
+    protected $status;
     
       /**
    * @ORM\ManyToOne(targetEntity="DBAL\Entity\User")
@@ -149,6 +159,21 @@ class Permit
     public function setSectionItems($sectionItems)
     {
         $this->sectionItems = $sectionItems;
+        
+    }
+
+    public function setSectionItem($sectionItem){
+        $this->sectionItems->add($sectionItem);
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+    
+    public function setStatus($status)
+    {
+        $this->status = $status;
         
     }
 }

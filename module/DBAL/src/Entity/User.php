@@ -61,7 +61,7 @@ class User
 
         /**
      *
-     * @ORM\ManyToMany(targetEntity="Profile", inversedBy="users")
+     * @ORM\ManyToMany(targetEntity="Profile", inversedBy="users",cascade={"persist"})
      * @ORM\JoinTable(
      *  name="Usuario_Perfil",
      *  joinColumns={
@@ -294,6 +294,14 @@ class User
         return $this->profiles;
     }
 
+    public function isContractor() 
+    {
+        foreach ($this->profiles as $profile) {
+            if ($profile->getName() == Profile::PROFILE_CONTRACTOR)
+                return true; 
+        }
+        return false;
+    }
 }
 
 

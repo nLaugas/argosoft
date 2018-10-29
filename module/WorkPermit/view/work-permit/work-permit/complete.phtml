@@ -5,7 +5,7 @@ $this->headTitle('Ver Permiso');
 
 ?>
 
-<h1 align="center">Ver Permiso</h1>
+<h1 align="center">Validar Permiso</h1>
 <br>
 <div class="row">
     <div class="col-xs-12">
@@ -75,12 +75,27 @@ $this->headTitle('Ver Permiso');
         </table>
     </div>
 </div>
+<form id="formModule" method="POST" action="<?= $this->url('workPermit', 
+                        ['action'=>'complete', 'id'=>$workPermit->getId()]); ?>" > 
+                <input type="hidden" id="validar" name="validar" value="">
 
 <script type="text/javascript">
+    function canceled()
+    {
+        $('input:hidden').val("canceled");
+        $('#formModule').submit();  
+    }
+    function acepted()
+    {
+        $('input:hidden').val("acepted");
+        $('#formModule').submit();  
+    }
+
     $(document).ready(function(){
         document.getElementById("btn-left").style.display = "none";
-        document.getElementById("btn-right").style.display = "none";
-        document.getElementById("btn-submit").style.display = "none";
+        document.getElementById("btn-right").setAttribute("class","btn btn-primary submit  glyphicon glyphicon-remove btn-lg");
+        document.getElementById("btn-right").onclick=function(){canceled()};
+        document.getElementById("btn-submit").onclick=function(){acepted()};
 
  });
 </script>

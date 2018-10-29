@@ -1,7 +1,6 @@
 <?php
 $this->headTitle('Permiso');
 
-
 ?>
 
 <h1 align="center">Permisos</h1>
@@ -11,7 +10,7 @@ $this->headTitle('Permiso');
 <table class="table table-striped ">
 
    <tr>
-        <th>ID</th>
+        <th>Nº </th>
         <th>Fecha de Creación</th>
         <th>Hora de Inicio</th>
         <th>Hora de Finalizacion</th>
@@ -25,7 +24,7 @@ $this->headTitle('Permiso');
         <td><?= $this->escapeHtml($permit->getId()); ?></td>
         <td>
             <a href="<?= $this->url('workPermit', ['action'=>'view', 'id'=>$permit->getId()]); ?>">
-                <?= $this->escapeHtml($permit->getDateCreated()); ?>
+                <?= $this->escapeHtml($permit->getDateCreated()->format('d/m/Y')); ?>
             </a> 
         </td>
         <td><?= $this->escapeHtml($permit->getStartTime()); ?></a> 
@@ -37,9 +36,19 @@ $this->headTitle('Permiso');
         <td><?= $this->escapeHtml($permit->getContractor()->getFullName()); ?>
         </td>
         <td>
-            <a class="btn btn-info" href="<?= $this->url('workPermit', 
-                    ['action'=>'edit', 'id'=>$permit->getId()]); ?>">
-                <span class="glyphicon glyphicon-pencil" ></span>Editar</a>
+            <?php if ($permit->getStatus() == $statusActived): ?>
+                <a class="btn btn-info" href="<?= $this->url('workPermit', 
+                        ['action'=>'edit', 'id'=>$permit->getId()]); ?>">
+                    <span class="glyphicon glyphicon-pencil" ></span></a>
+            <?php elseif ($permit->getStatus() == $statusWaiting): ?>
+                    <a class="btn btn-info" href="<?= $this->url('workPermit', 
+                        ['action'=>'complete', 'id'=>$permit->getId()]); ?>">
+                    <span class="glyphicon glyphicon-ok-sign" ></span></a>
+            <?php else:  ?>
+                    <a class="btn btn-info" href="<?= $this->url('workPermit', 
+                        ['action'=>'view', 'id'=>$permit->getId()]); ?>">
+                    <span class="glyphicon glyphicon-eye-open" ></span></a>
+            <?php endif ?>
         </td>    
     </tr>
         

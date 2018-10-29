@@ -40,7 +40,6 @@ class WorkPermitForm extends Form
      
         // Set POST method for this form
         $this->setAttribute('method', 'post');
-        
         // Save parameters for internal use.
         $this->scenario = $scenario;
         $this->entityManager = $entityManager;
@@ -91,7 +90,8 @@ class WorkPermitForm extends Form
                 'label' => 'Contratista',
             ],
         ]);
-        
+
+     
         // Add the Submit button
         $this->add([
             'type'  => 'submit',
@@ -178,6 +178,7 @@ class WorkPermitForm extends Form
                     ['name'=>'GreaterThan', 'options'=>['min'=>0]]
                 ],
             ]); 
+
         
             
     }           

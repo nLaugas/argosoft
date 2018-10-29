@@ -43,7 +43,7 @@ class Profile
      
          /**
      *
-     * @ORM\ManyToMany(targetEntity="Module", inversedBy="profiles")
+     * @ORM\ManyToMany(targetEntity="Module", inversedBy="profiles",cascade={"persist"})
      * @ORM\JoinTable(
      *  name="modulo_perfil",
      *  joinColumns={

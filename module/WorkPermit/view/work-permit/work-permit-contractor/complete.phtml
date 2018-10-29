@@ -27,7 +27,7 @@ input.invalid {
   height: 15px;
   width: 15px;
   margin: 0 2px;
-  background-color: #bbbbbb;
+  background-color: #337ab7;
   border: none; 
   border-radius: 50%;
   display: inline-block;
@@ -45,6 +45,9 @@ input.invalid {
 }</style>
 
 <script type="text/javascript">
+ $(document).ready(function(){
+        
+    
     var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
 
@@ -69,7 +72,31 @@ function showTab(n) {
   // ... and run a function that displays the correct step indicator:
   fixStepIndicator(n)
 }
+});
+ var currentTab = 0; // Current tab is set to be the first tab (0)
+showTab(currentTab); // Display the current tab
 
+function showTab(n) {
+  // This function will display the specified tab of the form ...
+  var x = document.getElementsByClassName("tab");
+  x[n].style.display = "block";
+  // ... and fix the Previous/Next buttons:
+  if (n == 0) {
+    document.getElementById("btn-left").style.display = "none";
+    document.getElementById("btn-right").style.display = "inline";
+    document.getElementById("btn-submit").style.display = "none";
+  } else {
+    document.getElementById("btn-left").style.display = "inline";
+    document.getElementById("btn-right").style.display = "inline";
+    document.getElementById("btn-submit").style.display = "none";  
+  }
+  if (n == (x.length - 1)) {
+    document.getElementById("btn-submit").style.display = "inline";
+    document.getElementById("btn-right").style.display = "none";
+  }
+  // ... and run a function that displays the correct step indicator:
+  fixStepIndicator(n)
+}
 function nextPrev(n) {
   // This function will figure out which tab to display
   var x = document.getElementsByClassName("tab");
@@ -80,11 +107,7 @@ function nextPrev(n) {
   // Increase or decrease the current tab by 1:
   currentTab = currentTab + n;
   // if you have reached the end of the form... :
-  if (currentTab >= x.length) {
-    //...the form gets submitted:
-    document.getElementById("regForm").submit();
-    return false;
-  }
+  
   // Otherwise, display the correct tab:
   showTab(currentTab);
 }
@@ -103,12 +126,13 @@ function fixStepIndicator(n) {
   //... and adds the "active" class to the current step:
   x[n].className += " active";
 }
+
 </script>
 
 
     <fieldset>
           <!-- Form Name -->
-          <form id="regForm" enctype='application/json' class="form-horizontal" role="form" method="POST"  >
+          <form id="regForm"  class="form-horizontal" role="form" method="POST"  >
           <?php foreach ($sections as $name => $items): ?>
           <div class="tab">    
               <legend><h1 align="center"><?=$name?></h1></legend>
@@ -118,7 +142,7 @@ function fixStepIndicator(n) {
                     <div class=" col-md-12" id = "for">
                         <select id='pre-selected-options' name="<?=$name?>[]" multiple='multiple'>
                             <?php foreach ($items as $key => $item): ?>
-                                <option value='<?="item_"+$key?>' 
+                                <option value='<?=$item->getName()?>' 
                                 <?php if ($item->getSelect() == 'A'): ?>
                                     selected
                                 <?php endif ?>
@@ -131,11 +155,28 @@ function fixStepIndicator(n) {
               </div>
             </div>
           <?php endforeach ?>
+          <div class="tab">    
+              <legend><h1 align="center">Personal que realizara el trabajo</h1></legend>
 
+              <!-- Text input-->
+              <div class="form-group row center-xs">
+                    <div class=" col-md-12" id = "for">
+                        <select id='pre-selected-options' name="personal[]" multiple='multiple'>
+                            <?php foreach ($personal as $key => $person): ?>
+                                <option value='<?=$person->getId()?>'> 
+                                  <?=$person->getFullName()?>
+                                </option>    
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+              </div>
+            </div>
      </fieldset>
      
 <div style="text-align:center;margin-top:40px;">
-  <span class="step"></span>
+  <?php foreach ($sections as $key => $value): ?>
+    <span class="step"></span>
+  <?php endforeach ?>
   <span class="step"></span>
 
 </div>
