@@ -162,10 +162,11 @@ class WorkPermitController extends WorkPermitContractorController
             
         }
         
-        
+        $personals = $this->workPermitManager->getPersonals($workPermit);
         return new ViewModel(array(
             'workPermit' => $workPermit,
             'sections' => $sections,
+            'personals' =>$personals,
         ));
     }
     /**
