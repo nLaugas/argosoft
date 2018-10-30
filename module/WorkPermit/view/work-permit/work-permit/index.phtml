@@ -16,17 +16,14 @@ $this->headTitle('Permiso');
         <th>Hora de Finalizacion</th>
         <th>Motivo de trabajo</th>
         <th>Contratista</th>
-        <th> </th>
+        <th></th>
     </tr>
     
     <?php foreach ($workPermit as $permit): ?>
     
     <tr>
         <td><?= $this->escapeHtml($permit->getId()); ?></td>
-        <td>
-            <a href="<?= $this->url('workPermit', ['action'=>'view', 'id'=>$permit->getId()]); ?>">
-                <?= $this->escapeHtml($permit->getDateCreated()->format('d/m/Y')); ?>
-            </a> 
+        <td><?= $this->escapeHtml($permit->getDateCreated()->format('d/m/Y')); ?> 
         </td>
         <td><?= $this->escapeHtml($permit->getStartTime()); ?></a> 
         </td>

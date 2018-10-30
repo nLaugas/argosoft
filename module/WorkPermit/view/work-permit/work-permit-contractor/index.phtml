@@ -24,10 +24,7 @@ $this->headTitle('Permiso');
     
     <tr>
         <td><?= $this->escapeHtml($permit->getId()); ?></td>
-        <td>
-            <a href="<?= $this->url('workPermitContractor', ['action'=>'view', 'id'=>$permit->getId()]); ?>">
-                <?= $this->escapeHtml($permit->getDateCreated()->format('d/m/Y')); ?>
-            </a> 
+        <td><?= $this->escapeHtml($permit->getDateCreated()->format('d/m/Y')); ?>
         </td>
         <td><?= $this->escapeHtml($permit->getStartTime()); ?></a> 
         </td>
