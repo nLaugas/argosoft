@@ -85,7 +85,6 @@ class IndexController extends AbstractActionController
         $profiles = $userLog->getProfiles();
         
         //agrega el perfil y usuario en la variable global
-        session_start();
         $_SESSION['profile'] = $profiles[0];
         $_SESSION['user'] = $userLog; 
 
