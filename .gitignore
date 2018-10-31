@@ -11,3 +11,5 @@ vendor/
 config/development.config.php
 phpunit.xml
 public/img/captcha
+data/DoctrineORMModule/Proxy/
+data/DoctrineORMModule/cache/
