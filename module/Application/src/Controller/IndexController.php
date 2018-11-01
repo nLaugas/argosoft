@@ -48,7 +48,8 @@ class IndexController extends AbstractActionController
      */
     public function modulesAction() 
     {              
-
+        $id = (int)$this->params()->fromRoute('id', -1);
+        $modules = null;
         if ($this->getRequest()->isPost()) {
             $data = $this->params()->fromPost();
             
@@ -59,48 +60,45 @@ class IndexController extends AbstractActionController
             $module =$this->entityManager->getRepository(Module::class)
                     ->findOneBy( array('id'=>$idModuleClick));
             
-            $operations = $module->getOperations();
             
-            if ($operations[0] != NULL){
-                //si el modulo tiene otros modulos
-                if ($idModuleClick == 3) 
-                    $this->redirect()->toRoute('workPermit');
-                else
-                    $this->redirect()->toRoute($operations[0]->getRoute());
+            if ($module->getRoute() != NULL){
+                $this->redirect()->toRoute($module->getRoute());
             }
-            else{                
-                //si el modulo tiene operaciones 
-                $this->redirect()->toRoute($module->getTemplate());
+            else
+            {                
+                $this->redirect()->toRoute('modules', ['id'=>$idModuleClick]);
             }
 
         }
 
         
 
-        //obtiene el usuario que esta registrado
-        $userLog = $this->entityManager->getRepository(User::class)
-                    ->findOneByEmail($this->identity());
+        if ($id < 0){
+            //obtiene el usuario que esta registrado
+            $userLog = $this->entityManager->getRepository(User::class)
+                        ->findOneByEmail($this->identity());
 
-        //obtiene los perfiles del usuario
-        $profiles = $userLog->getProfiles();
-        
-        //agrega el perfil y usuario en la variable global
-        $_SESSION['profile'] = $profiles[0];
-        $_SESSION['user'] = $userLog; 
+            //obtiene los perfiles del usuario
+            $profiles = $userLog->getProfiles();
+            
+            //agrega el perfil y usuario en la variable global
+            $_SESSION['profile'] = $profiles[0];
+            $_SESSION['user'] = $userLog; 
 
-        //obtiene los modulos del primer perfil 
-        $modules = $profiles[0]->getModules();   
-                    /*
-                    foreach ($modules as  $m) {
-                        echo $m->getName();
-                    }
-                    die(__FILE__);
-        */
-        // Return variables to view script with the help of
-        // ViewObject variable container
+            //obtiene los modulos del primer perfil 
+            $modules = $profiles[0]->getModules();   
+         
+        }
+        else
+        {
+            $module = $this->entityManager->getRepository(Module::class)
+                    ->findOneBy( ['id'=>$id]);
+            $modules = $this->entityManager->getRepository(Module::class)
+                    ->findBy(['fatherModule'=>$module]);
+
+        }
 
         return new ViewModel([
-            'profileName' => $profiles[0]->getName(),
             'profileModules' => $modules,
         ]);
     }  

@@ -25,9 +25,9 @@ class Module
     protected $name;
     
     /** 
-     * @ORM\Column(name="template")  
+     * @ORM\Column(name="route")  
      */
-    protected $template;
+    protected $route;
 
     /** 
      * @ORM\Column(name="icon")  
@@ -38,6 +38,7 @@ class Module
      *
      * @ORM\ManyToMany(targetEntity="Profile", mappedBy="modules") 
     */
+
     protected $profiles;
 
        /**
@@ -56,6 +57,11 @@ class Module
     protected $operations;
     
     
+    /**
+   * @ORM\ManyToOne(targetEntity="DBAL\Entity\Module")
+   * @ORM\JoinColumn(name="id_module", referencedColumnName="id")
+   */
+    protected $fatherModule;
     /**
      * Constructor.
      */
@@ -104,14 +110,14 @@ class Module
         $this->id = $id; 
     }
 
-    public function getTemplate()
+    public function getRoute()
     {
-        return $this->template;
+        return $this->route;
     }
     
-    public function setTemplate($template)
+    public function setRoute($route)
     {
-        $this->template = $template;
+        $this->route = $route;
         
     }
 }
